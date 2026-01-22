@@ -98,13 +98,7 @@ const Account = () => {
 
   return (
     <>
-      <HeroSection
-        title="Login"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        buttonText="Shop Now"
-        buttonLink="/shop"
-        imageUrl="img/img_about_banner.png"
-      />
+      <HeroSection pageName="account" />
 
       {/* Auth Section */}
       <section style={{ 
@@ -112,9 +106,9 @@ const Account = () => {
         background: '#fff'
       }}>
         <Container>
-          <Row className="align-items-stretch"> {/* Changed to align-items-stretch */}
+          <Row className="align-items-stretch">
             {/* Login Card */}
-            <Col lg={6} md={6} className="mb-4 mb-lg-0"> {/* Changed to lg={6} */}
+            <Col lg={6} md={6} className="mb-4 mb-lg-0">
               <div style={{
                 background: 'white',
                 borderRadius: '20px',
@@ -255,7 +249,7 @@ const Account = () => {
                     </div>
                   </div>
 
-                  <div style={{ marginTop: 'auto', paddingTop: '20px' }}> {/* Added marginTop: auto */}
+                  <div style={{ marginTop: 'auto', paddingTop: '20px' }}>
                     <Button 
                       type="submit" 
                       style={{
@@ -289,7 +283,7 @@ const Account = () => {
             </Col>
 
             {/* Register Card */}
-            <Col lg={6} md={6} id="registerCard"> {/* Changed to lg={6} */}
+            <Col lg={6} md={6} id="registerCard">
               <div style={{
                 background: 'white',
                 borderRadius: '20px',
@@ -422,7 +416,7 @@ const Account = () => {
                     </div>
                   </div>
 
-                  <div style={{ marginTop: 'auto', paddingTop: '20px' }}> {/* Added marginTop: auto */}
+                  <div style={{ marginTop: 'auto', paddingTop: '20px' }}>
                     <Button 
                       type="submit" 
                       style={{

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import HeroSection from '../components/HeroSection'
 import { FaUser, FaEnvelope } from 'react-icons/fa'
@@ -25,13 +25,7 @@ const Contact = () => {
 
   return (
     <>
-      <HeroSection
-        title="Contact Us"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        buttonText="Shop Now"
-        buttonLink="/shop"
-        imageUrl="img/img_contact_banner.png"
-      />
+      <HeroSection pageName="contact" />
 
       {/* Contact Information Section */}
       <section style={{ 
@@ -39,14 +33,14 @@ const Contact = () => {
         padding: '80px 0'
       }}>
         <Container>
-          <Row className="align-items-stretch"> {/* Changed to align-items-stretch */}
+          <Row className="align-items-stretch">
             {/* Map */}
             <Col lg={6} className="mb-4 mb-lg-0">
               <div style={{ 
                 borderRadius: '15px', 
                 overflow: 'hidden', 
                 boxShadow: '0 5px 15px rgba(0, 0, 0, 0.1)',
-                height: '100%' /* Changed to 100% */
+                height: '100%'
               }}>
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d472480.84800388815!2d72.85768656768794!3d22.306132334787602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sshrilaxmi%20hall%20location!5e0!3m2!1sen!2sin!4v1764871584984!5m2!1sen!2sin"

@@ -1,23 +1,42 @@
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import api from '../api';
 
 const DiscoverSection = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.getDiscoverProducts();
+        setProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching discover products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className="discover-section">
       <Container>
         <h2><span>Discover more.</span> <strong>Good things are waiting for you</strong></h2>
         <Row>
-          {[
-            { bgColor: '#F9EC82', imgClass: 'product-image1' },
-            { bgColor: '#FFE8CC', imgClass: 'product-image2' },
-            { bgColor: '#F9EC82', imgClass: 'product-image3' },
-            { bgColor: '#FFE8CC', imgClass: 'product-image4' }
-          ].map((item, index) => (
-            <Col md={3} key={index}>
-              <div className="product-card" style={{ backgroundColor: item.bgColor }}>
-                <span className="badge-new">New Arrival</span>
-                <div className={item.imgClass}></div>
-                <h5 className="mt-3">Shop The Latest Items From Top Brands</h5>
+          {products.map((product, index) => (
+            <Col md={3} key={product.id}>
+              <div className="product-card" style={{ backgroundColor: product.bgColor }}>
+                <span className="badge-new">{product.badge}</span>
+                <div className={product.imageClass}></div>
+                <h5 className="mt-3">{product.title}</h5>
                 <Link to="/shop">
                   <button className="btn-read-more mt-1">Shop Now</button>
                 </Link>
@@ -27,7 +46,7 @@ const DiscoverSection = () => {
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
 
-export default DiscoverSection
+export default DiscoverSection;

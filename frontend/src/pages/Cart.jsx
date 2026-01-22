@@ -1,65 +1,83 @@
 import { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import HeroSection from '../components/HeroSection'
+import api from '../api'
 import { FaTrash, FaMinus, FaPlus, FaShoppingCart, FaExclamationCircle, FaCheckCircle, FaTimesCircle } from 'react-icons/fa'
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: 1,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500',
-      color: 'Orange',
-      size: 'XS',
-      price: 4000,
-      quantity: 1,
-      inStock: true
-    },
-    {
-      id: 2,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=500',
-      color: 'Orange',
-      size: 'XS',
-      price: 4000,
-      quantity: 2,
-      inStock: true
-    },
-    {
-      id: 3,
-      name: 'Jewellery Name',
-      image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=500',
-      color: 'Orange',
-      size: 'XS',
-      price: 4000,
-      quantity: 2,
-      inStock: true
-    },
-    {
-      id: 4,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=500',
-      color: 'Orange',
-      size: 'XS',
-      price: 4000,
-      quantity: 1,
-      inStock: false
-    },
-    {
-      id: 5,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1724139139873-57572c120322?w=500',
-      color: 'Orange',
-      size: 'XS',
-      price: 4000,
-      quantity: 2,
-      inStock: true
-    }
-  ])
+  const [cartItems, setCartItems] = useState([])
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [itemToDelete, setItemToDelete] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  // Navbar के cart icon को orange करें
+  useEffect(() => {
+    fetchCartItems()
+  }, [])
+
+  const fetchCartItems = async () => {
+    try {
+      const response = await api.getCartItems()
+      setCartItems(response.data)
+    } catch (error) {
+      console.error('Error fetching cart items:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const updateQuantity = async (id, change) => {
+    const item = cartItems.find(item => item.id === id)
+    if (!item) return
+    
+    const newQuantity = Math.max(1, item.quantity + change)
+    
+    try {
+      await api.updateCartItem(id, { quantity: newQuantity })
+      setCartItems(prevItems =>
+        prevItems.map(item =>
+          item.id === id
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
+      )
+    } catch (error) {
+      console.error('Error updating quantity:', error)
+    }
+  }
+
+  const openDeleteModal = (id) => {
+    setItemToDelete(id)
+    setShowDeleteModal(true)
+  }
+
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false)
+    setItemToDelete(null)
+  }
+
+  const confirmDelete = async () => {
+    if (itemToDelete) {
+      try {
+        await api.deleteCartItem(itemToDelete)
+        setCartItems(prevItems => prevItems.filter(item => item.id !== itemToDelete))
+      } catch (error) {
+        console.error('Error deleting item:', error)
+      }
+    }
+    closeDeleteModal()
+  }
+
+  const calculateTotals = () => {
+    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
+    const shipping = cartItems.length > 0 ? 5 : 0
+    const tax = subtotal * 0.10
+    const total = subtotal + shipping + tax
+
+    return { subtotal, shipping, tax, total }
+  }
+
+  const { subtotal, shipping, tax, total } = calculateTotals()
+
   useEffect(() => {
     const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]');
     
@@ -83,53 +101,13 @@ const Cart = () => {
     };
   }, []);
 
-  const updateQuantity = (id, change) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
-      )
-    )
+  if (loading) {
+    return <div>Loading cart...</div>
   }
-
-  const openDeleteModal = (id) => {
-    setItemToDelete(id)
-    setShowDeleteModal(true)
-  }
-
-  const closeDeleteModal = () => {
-    setShowDeleteModal(false)
-    setItemToDelete(null)
-  }
-
-  const confirmDelete = () => {
-    if (itemToDelete) {
-      setCartItems(prevItems => prevItems.filter(item => item.id !== itemToDelete))
-    }
-    closeDeleteModal()
-  }
-
-  const calculateTotals = () => {
-    const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0)
-    const shipping = cartItems.length > 0 ? 5 : 0
-    const tax = subtotal * 0.10
-    const total = subtotal + shipping + tax
-
-    return { subtotal, shipping, tax, total }
-  }
-
-  const { subtotal, shipping, tax, total } = calculateTotals()
 
   return (
     <>
-      <HeroSection
-        title="Cart"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        buttonText="Shop Now"
-        buttonLink="/shop"
-        imageUrl="img/Rectangle_img_edit.png"
-      />
+      <HeroSection pageName="cart" />
 
       {/* Cart Section */}
       <section style={{ 
@@ -202,14 +180,14 @@ const Cart = () => {
                           fontSize: '16px'
                         }}
                         onMouseEnter={(e) => {
-                          e.target.style.background = '#FF7E00';
-                          e.target.style.color = 'white';
-                          e.target.style.transform = 'scale(1.1)';
+                          e.target.style.background = '#FF7E00'
+                          e.target.style.color = 'white'
+                          e.target.style.transform = 'scale(1.1)'
                         }}
                         onMouseLeave={(e) => {
-                          e.target.style.background = 'white';
-                          e.target.style.color = '#FF7E00';
-                          e.target.style.transform = 'scale(1)';
+                          e.target.style.background = 'white'
+                          e.target.style.color = '#FF7E00'
+                          e.target.style.transform = 'scale(1)'
                         }}
                         onClick={() => openDeleteModal(item.id)}
                       >
@@ -316,14 +294,14 @@ const Cart = () => {
                             }}
                             onMouseEnter={(e) => {
                               if (item.inStock) {
-                                e.target.style.borderColor = '#FF7E00';
-                                e.target.style.color = '#FF7E00';
+                                e.target.style.borderColor = '#FF7E00'
+                                e.target.style.color = '#FF7E00'
                               }
                             }}
                             onMouseLeave={(e) => {
                               if (item.inStock) {
-                                e.target.style.borderColor = '#e0e0e0';
-                                e.target.style.color = '#2D2D2D';
+                                e.target.style.borderColor = '#e0e0e0'
+                                e.target.style.color = '#2D2D2D'
                               }
                             }}
                             onClick={() => updateQuantity(item.id, -1)}
@@ -358,14 +336,14 @@ const Cart = () => {
                             }}
                             onMouseEnter={(e) => {
                               if (item.inStock) {
-                                e.target.style.borderColor = '#FF7E00';
-                                e.target.style.color = '#FF7E00';
+                                e.target.style.borderColor = '#FF7E00'
+                                e.target.style.color = '#FF7E00'
                               }
                             }}
                             onMouseLeave={(e) => {
                               if (item.inStock) {
-                                e.target.style.borderColor = '#e0e0e0';
-                                e.target.style.color = '#2D2D2D';
+                                e.target.style.borderColor = '#e0e0e0'
+                                e.target.style.color = '#2D2D2D'
                               }
                             }}
                             onClick={() => updateQuantity(item.id, 1)}
@@ -466,14 +444,14 @@ const Cart = () => {
                     marginTop: '20px'
                   }}
                   onMouseEnter={(e) => {
-                    e.target.style.background = '#E38B50';
-                    e.target.style.transform = 'translateY(-2px)';
-                    e.target.style.boxShadow = '0 5px 20px rgba(255, 126, 0, 0.3)';
+                    e.target.style.background = '#E38B50'
+                    e.target.style.transform = 'translateY(-2px)'
+                    e.target.style.boxShadow = '0 5px 20px rgba(255, 126, 0, 0.3)'
                   }}
                   onMouseLeave={(e) => {
-                    e.target.style.background = '#FF7E00';
-                    e.target.style.transform = 'translateY(0)';
-                    e.target.style.boxShadow = 'none';
+                    e.target.style.background = '#FF7E00'
+                    e.target.style.transform = 'translateY(0)'
+                    e.target.style.boxShadow = 'none'
                   }}
                 >
                   Check Out
@@ -532,12 +510,12 @@ const Cart = () => {
                 }}
                 onClick={closeDeleteModal}
                 onMouseEnter={(e) => {
-                  e.target.style.background = '#f8f9fa';
-                  e.target.style.borderColor = '#2D2D2D';
+                  e.target.style.background = '#f8f9fa'
+                  e.target.style.borderColor = '#2D2D2D'
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.background = 'white';
-                  e.target.style.borderColor = '#e0e0e0';
+                  e.target.style.background = 'white'
+                  e.target.style.borderColor = '#e0e0e0'
                 }}
               >
                 Cancel
@@ -556,12 +534,12 @@ const Cart = () => {
                 }}
                 onClick={confirmDelete}
                 onMouseEnter={(e) => {
-                  e.target.style.background = '#E38B50';
-                  e.target.style.transform = 'scale(1.05)';
+                  e.target.style.background = '#E38B50'
+                  e.target.style.transform = 'scale(1.05)'
                 }}
                 onMouseLeave={(e) => {
-                  e.target.style.background = '#FF7E00';
-                  e.target.style.transform = 'scale(1)';
+                  e.target.style.background = '#FF7E00'
+                  e.target.style.transform = 'scale(1)'
                 }}
               >
                 Remove
@@ -570,61 +548,6 @@ const Cart = () => {
           </div>
         </div>
       )}
-
-      <style jsx>{`
-        @keyframes modalSlideIn {
-          from {
-            transform: translateY(-50px);
-            opacity: 0;
-          }
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-        
-        @media (max-width: 768px) {
-          .cart-item {
-            flex-direction: column;
-            align-items: flex-start;
-          }
-          
-          .cart-image {
-            width: 100%;
-            height: 200px;
-            margin-bottom: 15px;
-          }
-          
-          .cart-actions {
-            width: 100%;
-            justify-content: space-between;
-            margin-top: 15px;
-          }
-          
-          .delete-btn {
-            position: relative;
-            top: 0;
-            right: 0;
-            margin-left: auto;
-          }
-          
-          .order-summary {
-            position: relative;
-            top: 0;
-            margin-top: 30px;
-          }
-        }
-        
-        @media (max-width: 576px) {
-          .cart-details h5 {
-            font-size: 18px;
-          }
-          
-          .price-tag {
-            font-size: 18px;
-          }
-        }
-      `}</style>
     </>
   )
 }

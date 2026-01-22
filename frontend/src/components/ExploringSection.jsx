@@ -1,26 +1,29 @@
+import { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import api from '../api'
 
 const ExploringSection = () => {
-  const categories = [
-    {
-      id: 1,
-      title: 'Western Wear',
-      description: 'Stylish everyday outfits for a chic modern look.',
-      imageClass: 'category1'
-    },
-    {
-      id: 2,
-      title: 'Dress',
-      description: 'Elegant designer gowns crafted for special celebrations.',
-      imageClass: 'category2'
-    },
-    {
-      id: 3,
-      title: 'Navratri',
-      description: 'Vibrant ethnic styles perfect for festive occasions.',
-      imageClass: 'category3'
+  const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.getCategories()
+        setCategories(response.data)
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+      } finally {
+        setLoading(false)
+      }
     }
-  ]
+
+    fetchCategories()
+  }, [])
+
+  if (loading) {
+    return <div>Loading categories...</div>
+  }
 
   return (
     <section className="exploring-section">

@@ -1,47 +1,58 @@
-import { useState } from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import HeroSection from '../components/HeroSection'
-import { FaChevronLeft, FaChevronRight, FaBullseye, FaTrophy } from 'react-icons/fa'
+import { useState, useEffect } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import HeroSection from '../components/HeroSection';
+import api from '../api';
+import { FaChevronLeft, FaChevronRight, FaBullseye, FaTrophy } from 'react-icons/fa';
 
 const About = () => {
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [aboutData, setAboutData] = useState(null);
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const timelineData = [
-    { year: '2015', text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam' },
-    { year: '2016', text: 'Expanded to 3 new locations and introduced our premium clothing line. Received "Best New Retailer" award.' },
-    { year: '2018', text: 'Introduced sustainable fashion line. Won "Eco-Friendly Retailer of the Year" award.' },
-    { year: '2020', text: 'Adapted to pandemic with enhanced online services. Grew online sales by 300%.' },
-    { year: '2021', text: 'Launched mobile app and expanded to international markets.' },
-    { year: '2022', text: 'Opened flagship store in Mumbai. Received "Retail Excellence" award.' },
-    { year: '2024', text: 'Reached 50+ stores nationwide. Started eco-friendly packaging initiative.' },
-    { year: '2025', text: 'Launched AI-powered fashion recommendations.' },
-    { year: '2026', text: 'Planning to expand to 10+ countries internationally.' }
-  ]
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [aboutResponse, teamResponse] = await Promise.all([
+          api.getAboutData(),
+          api.getTeam()
+        ]);
+        setAboutData(aboutResponse.data);
+        setTeam(teamResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % timelineData.length)
-  }
+    if (aboutData?.timeline) {
+      setCurrentSlide((prev) => (prev + 1) % aboutData.timeline.length);
+    }
+  };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + timelineData.length) % timelineData.length)
+    if (aboutData?.timeline) {
+      setCurrentSlide((prev) => (prev - 1 + aboutData.timeline.length) % aboutData.timeline.length);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading...</div>;
   }
 
-  const teamMembers = [
-    { name: 'Aaksh Shah', role: 'Founder, CEO', image: 'img/img_aaksh.png', imageClass: 'team-image1' },
-    { name: 'Neha Patel', role: 'President', image: 'img/img_naha.png', imageClass: 'team-image2' },
-    { name: 'Ankit Patel', role: 'Co-Founder', image: 'img/img_ankit.png', imageClass: 'team-image3' }
-  ]
+  if (!aboutData) {
+    return null;
+  }
 
   return (
     <>
-      <HeroSection
-        title="About Us"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        buttonText="Shop Now"
-        buttonLink="/shop"
-        imageUrl="img/img_about_banner.png"
-      />
+      <HeroSection pageName="about" />
 
       {/* 15+ Years Experience Section */}
       <section className="experience-section">
@@ -55,25 +66,17 @@ const About = () => {
             
             <Col lg={6}>
               <div className="experience-content">
-                <h2 className="experience-title">15+ Years Of Experience In This Industry</h2>
+                <h2 className="experience-title">{aboutData.experienceTitle}</h2>
                 
-                <p className="experience-text">
-                  Suspendisse non nisl sit amet velit hendrerit rutrum. Nulla porta dolor. Nunc interdum lacus sit amet orci. Donec quis lectus, aliquam ut, faucibus non, euismod id, nulla.
-                </p>
-                
-                <p className="experience-text">
-                  Suspendisse non nisl sit amet velit hendrerit rutrum. Nulla porta dolor. Nunc interdum lacus sit amet orci. Donec quis lectus, aliquam ut, faucibus non, euismod id, nulla. Etiam sit amet erat nec sapir vehicula.
-                </p>
-                
-                <p className="experience-text">
-                  Maecenas egestas arcu quis ligula mattis placerat. Quisque ut mi. Sed a libero. Vestibulum semper mauris ut ligula. Aenean posuere, tortor sed cursus feugiat, nunc augue blandit nunc, eu sollicitudin urna dolor sagittis lacus.
-                </p>
+                {aboutData.experienceTexts.map((text, index) => (
+                  <p key={index} className="experience-text">{text}</p>
+                ))}
 
                 <div className="founder-profile">
-                  <img src="img/img_akash_shah.png" alt="Founder" />
+                  <img src={aboutData.founder.image} alt="Founder" />
                   <div className="founder-info">
-                    <h6>Aaksh Shah</h6>
-                    <p>Founder, CEO</p>
+                    <h6>{aboutData.founder.name}</h6>
+                    <p>{aboutData.founder.role}</p>
                   </div>
                 </div>
               </div>
@@ -91,10 +94,8 @@ const About = () => {
                 <div className="info-card-icon">
                   <FaBullseye />
                 </div>
-                <h4>Our Mission.</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
+                <h4>{aboutData.mission.title}</h4>
+                <p>{aboutData.mission.description}</p>
               </div>
             </Col>
             
@@ -103,10 +104,8 @@ const About = () => {
                 <div className="info-card-icon">
                   <FaTrophy />
                 </div>
-                <h4>Awards & Recognition.</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
+                <h4>{aboutData.awards.title}</h4>
+                <p>{aboutData.awards.description}</p>
               </div>
             </Col>
           </Row>
@@ -116,8 +115,8 @@ const About = () => {
       {/* Our History Section */}
       <section className="history-section">
         <Container>
-          <h2 className="section-title">Our History.</h2>
-          <p className="section-subtitle">Lorem ipsum is simply dummy text of the printing and typesetting industry.</p>
+          <h2 className="section-title">{aboutData.historyTitle}</h2>
+          <p className="section-subtitle">{aboutData.historySubtitle}</p>
           
           <div className="timeline-container">
             <div 
@@ -125,8 +124,8 @@ const About = () => {
               id="timelineSlider"
               style={{ transform: `translateX(-${currentSlide * 33.333}%)` }}
             >
-              {timelineData.map((item, index) => (
-                <div className="timeline-slide" key={index}>
+              {aboutData.timeline.map((item, index) => (
+                <div className="timeline-slide" key={item.id}>
                   <div className="timeline-year">{item.year}</div>
                   <p className="timeline-text">{item.text}</p>
                   <div className="timeline-year-display">{item.year}</div>
@@ -163,10 +162,10 @@ const About = () => {
           <h2 className="section-title">Our Team.</h2>
           
           <Row className="mt-5">
-            {teamMembers.map((member, index) => (
-              <Col lg={4} md={6} className="mb-4" key={index}>
+            {team.map((member, index) => (
+              <Col lg={4} md={6} className="mb-4" key={member.id}>
                 <div className="team-card">
-                  <img src={member.image} alt={member.name} className={member.imageClass} />
+                  <img src={member.image} alt={member.name} className={`team-image${index + 1}`} />
                   <div className="team-info">
                     <h5>{member.name}</h5>
                     <p>{member.role}</p>
@@ -178,7 +177,7 @@ const About = () => {
         </Container>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default About
+export default About;

@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import HeroSection from '../components/HeroSection'
-import { FaRupeeSign, FaThLarge, FaRuler, FaSort, FaHeart, FaShoppingCart, FaStar, FaStarHalfAlt } from 'react-icons/fa'
+import { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import HeroSection from '../components/HeroSection';
+import { FaRupeeSign, FaThLarge, FaRuler, FaSort, FaHeart, FaShoppingCart, FaStar, FaStarHalfAlt } from 'react-icons/fa';
+import api from '../api';
 
 const Shop = () => {
   const [filters, setFilters] = useState({
@@ -10,149 +11,37 @@ const Shop = () => {
     category: [],
     size: [],
     sort: 'popularity'
-  })
-  const [products, setProducts] = useState([])
-  const [filteredProducts, setFilteredProducts] = useState([])
-  const [currentPage, setCurrentPage] = useState(1)
-  const [showMenu, setShowMenu] = useState('')
-  const productsPerPage = 6
-
-  // Sample product data
-  const allProducts = [
-    {
-      id: 1,
-      title: "Elegant Evening Dress",
-      price: 2000,
-      category: "Female",
-      sizes: ["S", "M", "L"],
-      rating: 4.9,
-      image: "img/western.png",
-      isNew: true
-    },
-    {
-      id: 2,
-      title: "Floral Summer Dress",
-      price: 2500,
-      category: "Female",
-      sizes: ["M", "L", "XL"],
-      rating: 4.8,
-      image: "img/img_dress.png",
-      isNew: false
-    },
-    {
-      id: 3,
-      title: "Casual Party Wear",
-      price: 2000,
-      category: "Female",
-      sizes: ["S", "M"],
-      rating: 4.9,
-      image: "img/img_western.png",
-      isNew: true
-    },
-    {
-      id: 4,
-      title: "Designer Saree",
-      price: 3500,
-      category: "Female",
-      sizes: ["M", "L", "XL"],
-      rating: 4.9,
-      image: "img/saree.png",
-      isNew: false
-    },
-    {
-      id: 5,
-      title: "Traditional Lehenga",
-      price: 4500,
-      category: "Female",
-      sizes: ["S", "M", "L"],
-      rating: 4.8,
-      image: "img/navratri.png",
-      isNew: true
-    },
-    {
-      id: 6,
-      title: "Modern Ethnic Wear",
-      price: 2800,
-      category: "Female",
-      sizes: ["M", "L", "XL"],
-      rating: 4.9,
-      image: "img/gown.png",
-      isNew: false
-    },
-    {
-      id: 7,
-      title: "Bridal Lehenga",
-      price: 5500,
-      category: "Female",
-      sizes: ["S", "M"],
-      rating: 5.0,
-      image: "img/fe1.png",
-      isNew: true
-    },
-    {
-      id: 8,
-      title: "Office Formal Suit",
-      price: 3200,
-      category: "Male",
-      sizes: ["M", "L", "XL"],
-      rating: 4.7,
-      image: "img/img_ankit.png",
-      isNew: false
-    },
-    {
-      id: 9,
-      title: "Silk Saree",
-      price: 4200,
-      category: "Female",
-      sizes: ["S", "M", "L"],
-      rating: 4.9,
-      image: "img/fe6.png",
-      isNew: true
-    },
-    {
-      id: 10,
-      title: "Kids Casual Dress",
-      price: 1500,
-      category: "Kids",
-      sizes: ["S", "M"],
-      rating: 4.5,
-      image: "img/kids_dress.jpg",
-      isNew: true
-    },
-    {
-      id: 11,
-      title: "Gold Necklace Set",
-      price: 8000,
-      category: "Jewellery",
-      sizes: ["One Size"],
-      rating: 4.9,
-      image: "img/jewellery1.jpg",
-      isNew: false
-    },
-    {
-      id: 12,
-      title: "Men's Formal Suit",
-      price: 3800,
-      category: "Male",
-      sizes: ["M", "L", "XL"],
-      rating: 4.6,
-      image: "img/me2.png",
-      isNew: true
-    }
-  ]
+  });
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [showMenu, setShowMenu] = useState('');
+  const [loading, setLoading] = useState(true);
+  const productsPerPage = 6;
 
   useEffect(() => {
-    setProducts(allProducts)
-    setFilteredProducts(allProducts)
-  }, [])
+    const fetchProducts = async () => {
+      try {
+        const response = await api.getProducts();
+        setProducts(response.data);
+        setFilteredProducts(response.data);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
-    filterProducts()
-  }, [filters])
+    filterProducts();
+  }, [filters, products]);
 
   const toggleMenu = (menu) => {
-    setShowMenu(showMenu === menu ? '' : menu)
-  }
+    setShowMenu(showMenu === menu ? '' : menu);
+  };
 
   const handleFilterChange = (type, value) => {
     setFilters(prev => {
@@ -169,10 +58,10 @@ const Shop = () => {
       return newFilters
     })
     setCurrentPage(1)
-  }
+  };
 
   const filterProducts = () => {
-    let filtered = [...allProducts]
+    let filtered = [...products]
 
     // Price filter
     if (filters.price.length > 0) {
@@ -219,7 +108,7 @@ const Shop = () => {
     })
 
     setFilteredProducts(filtered)
-  }
+  };
 
   const clearAllFilters = () => {
     setFilters({
@@ -229,11 +118,11 @@ const Shop = () => {
       sort: 'popularity'
     })
     setCurrentPage(1)
-  }
+  };
 
   const removeFilter = (type, value) => {
     handleFilterChange(type, value)
-  }
+  };
 
   const renderStars = (rating) => {
     const stars = []
@@ -250,21 +139,20 @@ const Shop = () => {
       }
     }
     return stars
-  }
+  };
 
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
   const startIndex = (currentPage - 1) * productsPerPage
   const endIndex = startIndex + productsPerPage
   const currentProducts = filteredProducts.slice(startIndex, endIndex)
 
+  if (loading) {
+    return <div>Loading products...</div>;
+  }
+
   return (
     <>
-      <HeroSection
-  title="Shop"
-  description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-  imageUrl="img/img_banner_shop.png"
-  isShopPage={true}  // Yaha se button hide hoga
-/>
+      <HeroSection pageName="shop" isShopPage={true} />
 
       {/* Products Filter & Display Section */}
       <section className="filter-section">
@@ -505,7 +393,7 @@ const Shop = () => {
         </Container>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default Shop
+export default Shop;

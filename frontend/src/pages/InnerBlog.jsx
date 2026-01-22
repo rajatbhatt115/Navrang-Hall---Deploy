@@ -1,9 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import HeroSection from '../components/HeroSection'
+import api from '../api'
 import { FaUser, FaEnvelope } from 'react-icons/fa'
 
 const InnerBlog = () => {
+  const [blogData, setBlogData] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [commentForm, setCommentForm] = useState({
     firstName: '',
     lastName: '',
@@ -11,30 +14,23 @@ const InnerBlog = () => {
     email: '',
     message: ''
   })
+  const [comments, setComments] = useState([])
 
-  const [comments, setComments] = useState([
-    {
-      id: 1,
-      name: 'Neha Yadav',
-      date: '20 May 2023',
-      text: 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable.',
-      avatar: 'https://i.pravatar.cc/150?img=5'
-    },
-    {
-      id: 2,
-      name: 'Aakash Modi',
-      date: '11 April 2023',
-      text: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-      avatar: 'https://i.pravatar.cc/150?img=8'
-    },
-    {
-      id: 3,
-      name: 'Amit Solanki',
-      date: '28 March 2023',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-      avatar: 'https://i.pravatar.cc/150?img=12'
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      try {
+        const response = await api.getInnerBlog(1)
+        setBlogData(response.data)
+        setComments(response.data.comments || [])
+      } catch (error) {
+        console.error('Error fetching blog data:', error)
+      } finally {
+        setLoading(false)
+      }
     }
-  ])
+
+    fetchBlogData()
+  }, [])
 
   const handleCommentChange = (e) => {
     setCommentForm({
@@ -69,15 +65,17 @@ const InnerBlog = () => {
     })
   }
 
+  if (loading) {
+    return <div>Loading blog...</div>
+  }
+
+  if (!blogData) {
+    return <div>Blog not found</div>
+  }
+
   return (
     <>
-      <HeroSection
-        title="Blog"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        buttonText="Shop Now"
-        buttonLink="/shop"
-        imageUrl={window.location.origin + "/img/img_banner_shop.png"}
-      />
+      <HeroSection pageName="blog" />
 
       {/* Blog Content Section */}
       <section className="blog-content-section">
@@ -99,62 +97,23 @@ const InnerBlog = () => {
 
               {/* Blog Post Content */}
               <div className="blog-post-content">
-                <h3>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</h3>
+                <h3>{blogData.title}</h3>
 
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have
-                  suffered alteration in some form, by injected humour, or randomised words which don't look
-                  even slightly believable.</p>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua.</p>
-
-                <p>Curabitur ac urna ac nibh volutpat finibus vitae eget diam. Mauris vitae quam egestas,
-                  finibus sem eget, maximus turpis. Nulla facilisi. Nulla quam id dapibus risus vehicula
-                  aliquet. Etiam hendrerit leo quis neque tristique aliquet.</p>
-
-                <p>Aliquam convallis massa vitae nisi, dictum lacus, viverra tellus. Nulla facilisi. Aliquam
-                  eget dictum erat, vitae elementum tortor. Sed efficitur tortor mi, sed suscipit elit
-                  tincidunt sit amet. Nulla porta leo sed eleifend dignissim.</p>
-
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium
-                  voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati
-                  cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id
-                  est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam
-                  libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
-                  maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
-                  Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut
-                  et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a
-                  sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis
-                  doloribus asperiores repellat.</p>
-
-                <p>On the other hand, we denounce with righteous indignation and dislike men who are so beguiled
-                  and demoralized by the charms of pleasure of the moment, so blinded by desire, that they
-                  cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to
-                  those who fail in their duty through weakness of will, which is the same as saying through
-                  shrinking from toil and pain.</p>
-
-                <p>On okamassa monita eri versiota Lorem Ipsum kappaleita, mutta suurin osa on kärsinyt
-                  muokkasta joisain muodossa, joko huumorin tai satunnamaraisesti asetetuin sanoin jotka eivät
-                  näytä edes vähän uskottavalta. Jos aiot käyttää kappaleita Lorem Ipsumista, sinun pitää
-                  tarkastaa ettei tekstin seassa ole mitään nolatuttavaa. Kaikki Lorem Ipsum-generaattorit
-                  Internetissä turivovat toistavan ennalta määritettyjä palasia tarpeen mukaan, tehden tästä
-                  ensimmäisen oikean generaattorin Internetissä. Se käyttää 200 latinalaisen sanaa sanakirjaa,
-                  joka on yhdisteffy kouralliseen mallilauseen rakenteita luoden Lorem Ipsumia, joka näyttää
-                  järkellästä. Generoitu Lorem Ipsum on aina aina vapos toistoista, humorista jne.</p>
+                <p>{blogData.content}</p>
 
                 {/* Author Info */}
                 <div className="blog-post-meta">
                   <div
                     className="author-avatar"
                     style={{
-                      backgroundImage: 'url(https://i.pravatar.cc/150?img=1)',
+                      backgroundImage: `url(${blogData.authorImage})`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
                   ></div>
                   <div className="author-info">
-                    <div className="author-name">Kiran Patel</div>
-                    <div className="post-date">20 May 2023</div>
+                    <div className="author-name">{blogData.author}</div>
+                    <div className="post-date">{blogData.date}</div>
                   </div>
                 </div>
               </div>

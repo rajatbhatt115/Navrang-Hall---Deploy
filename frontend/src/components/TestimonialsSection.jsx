@@ -1,30 +1,36 @@
 import { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+import api from '../api'
 
 const TestimonialsSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [testimonials, setTestimonials] = useState([])
+  const [loading, setLoading] = useState(true)
 
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Harold Patel',
-      text: '"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable."',
-      avatarClass: 'testimonial-avatar1'
-    },
-    {
-      id: 2,
-      name: 'Priya Sharma',
-      text: '"I absolutely love the quality of clothes from Shree Laxmi Mall. The fabrics are premium and the designs are trendy. My friends always ask me where I shop!"',
-      avatarClass: 'testimonial-avatar2'
-    },
-    {
-      id: 3,
-      name: 'Rahul Verma',
-      text: '"The customer service is exceptional. They helped me find the perfect outfit for my sister\'s wedding. The delivery was prompt and the packaging was beautiful."',
-      avatarClass: 'testimonial-avatar3'
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await api.getTestimonials()
+        setTestimonials(response.data)
+      } catch (error) {
+        console.error('Error fetching testimonials:', error)
+      } finally {
+        setLoading(false)
+      }
     }
-  ]
+
+    fetchTestimonials()
+  }, [])
+
+  useEffect(() => {
+    if (testimonials.length > 0) {
+      const interval = setInterval(() => {
+        nextSlide()
+      }, 5000)
+      return () => clearInterval(interval)
+    }
+  }, [testimonials.length])
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % testimonials.length)
@@ -34,10 +40,13 @@ const TestimonialsSection = () => {
     setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length)
   }
 
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 5000)
-    return () => clearInterval(interval)
-  }, [])
+  if (loading) {
+    return <div>Loading testimonials...</div>
+  }
+
+  if (testimonials.length === 0) {
+    return null
+  }
 
   return (
     <section className="testimonials-section">

@@ -1,7 +1,35 @@
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import api from '../api';
 
 const AboutSection = () => {
+  const [aboutContent, setAboutContent] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAboutContent = async () => {
+      try {
+        const response = await api.getAboutContent();
+        setAboutContent(response.data);
+      } catch (error) {
+        console.error('Error fetching about content:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAboutContent();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!aboutContent) {
+    return null;
+  }
+
   return (
     <section className="about-section">
       <Container>
@@ -35,7 +63,7 @@ const AboutSection = () => {
         </Row>
       </Container>
     </section>
-  )
-}
+  );
+};
 
-export default AboutSection
+export default AboutSection;

@@ -1,111 +1,48 @@
 import { useState, useEffect } from 'react'
 import { Container, Button } from 'react-bootstrap'
 import HeroSection from '../components/HeroSection'
+import api from '../api'
 import { FaTrashAlt, FaShoppingCart, FaMinus, FaPlus, FaCheckCircle, FaTimesCircle, FaHeartBroken, FaHeart } from 'react-icons/fa'
 
 const Wishlist = () => {
-  const [wishlistItems, setWishlistItems] = useState([
-    {
-      id: 1,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400',
-      color: 'Orange',
-      size: 'XS',
-      unitPrice: 4000,
-      quantity: 1,
-      inStock: true
-    },
-    {
-      id: 2,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?w=400',
-      color: 'Orange',
-      size: 'XS',
-      unitPrice: 4000,
-      quantity: 2,
-      inStock: true
-    },
-    {
-      id: 3,
-      name: 'Jewellery Name',
-      image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400',
-      color: 'Orange',
-      size: 'XS',
-      unitPrice: 4000,
-      quantity: 2,
-      inStock: true
-    },
-    {
-      id: 4,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1591369822096-ffd140ec948f?w=400',
-      color: 'Orange',
-      size: 'XS',
-      unitPrice: 4000,
-      quantity: 1,
-      inStock: false
-    },
-    {
-      id: 5,
-      name: 'Dress Name',
-      image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?w=400',
-      color: 'Orange',
-      size: 'XS',
-      unitPrice: 4000,
-      quantity: 2,
-      inStock: true
-    }
-  ])
+  const [wishlistItems, setWishlistItems] = useState([])
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [itemToDelete, setItemToDelete] = useState(null)
+  const [loading, setLoading] = useState(true)
 
-  // Navbar के wishlist icon को orange करें
   useEffect(() => {
-    // Wishlist link खोजें
-    const wishlistLinks = document.querySelectorAll('a[href*="wishlist"], a[href="/wishlist"]');
+    fetchWishlistItems()
+  }, [])
+
+  const fetchWishlistItems = async () => {
+    try {
+      const response = await api.getWishlistItems()
+      setWishlistItems(response.data)
+    } catch (error) {
+      console.error('Error fetching wishlist items:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const updateQuantity = async (id, change) => {
+    const item = wishlistItems.find(item => item.id === id)
+    if (!item) return
     
-    wishlistLinks.forEach(link => {
-      // Link को orange करें
-      link.style.color = '#FF7E00';
-      
-      // Icon को भी orange करें
-      const icon = link.querySelector('i, svg, .heart-icon');
-      if (icon) {
-        icon.style.color = '#FF7E00';
-      }
-      
-      // Special case for heart-icon class
-      const heartIcon = link.querySelector('.heart-icon');
-      if (heartIcon) {
-        heartIcon.style.color = '#FF7E00';
-      }
-    });
-
-    // Cleanup function - page छोड़ने पर original color restore करें
-    return () => {
-      wishlistLinks.forEach(link => {
-        link.style.color = '';
-        const icon = link.querySelector('i, svg, .heart-icon');
-        if (icon) {
-          icon.style.color = '';
-        }
-        
-        const heartIcon = link.querySelector('.heart-icon');
-        if (heartIcon) {
-          heartIcon.style.color = '';
-        }
-      });
-    };
-  }, []);
-
-  const updateQuantity = (id, change) => {
-    setWishlistItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + change) }
-          : item
+    const newQuantity = Math.max(1, item.quantity + change)
+    
+    try {
+      await api.updateWishlistItem(id, { quantity: newQuantity })
+      setWishlistItems(prevItems =>
+        prevItems.map(item =>
+          item.id === id
+            ? { ...item, quantity: newQuantity }
+            : item
+        )
       )
-    )
+    } catch (error) {
+      console.error('Error updating quantity:', error)
+    }
   }
 
   const calculatePrice = (item) => {
@@ -122,9 +59,14 @@ const Wishlist = () => {
     setItemToDelete(null)
   }
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (itemToDelete) {
-      setWishlistItems(prevItems => prevItems.filter(item => item.id !== itemToDelete))
+      try {
+        await api.deleteWishlistItem(itemToDelete)
+        setWishlistItems(prevItems => prevItems.filter(item => item.id !== itemToDelete))
+      } catch (error) {
+        console.error('Error deleting item:', error)
+      }
     }
     closeDeleteModal()
   }
@@ -135,15 +77,46 @@ const Wishlist = () => {
     setWishlistItems(prevItems => prevItems.filter(i => i.id !== item.id))
   }
 
+  useEffect(() => {
+    const wishlistLinks = document.querySelectorAll('a[href*="wishlist"], a[href="/wishlist"]');
+    
+    wishlistLinks.forEach(link => {
+      link.style.color = '#FF7E00';
+      
+      const icon = link.querySelector('i, svg, .heart-icon');
+      if (icon) {
+        icon.style.color = '#FF7E00';
+      }
+      
+      const heartIcon = link.querySelector('.heart-icon');
+      if (heartIcon) {
+        heartIcon.style.color = '#FF7E00';
+      }
+    });
+
+    return () => {
+      wishlistLinks.forEach(link => {
+        link.style.color = '';
+        const icon = link.querySelector('i, svg, .heart-icon');
+        if (icon) {
+          icon.style.color = '';
+        }
+        
+        const heartIcon = link.querySelector('.heart-icon');
+        if (heartIcon) {
+          heartIcon.style.color = '';
+        }
+      });
+    };
+  }, []);
+
+  if (loading) {
+    return <div>Loading wishlist...</div>
+  }
+
   return (
     <>
-      <HeroSection
-        title="Wishlist"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        buttonText="Shop Now"
-        buttonLink="/shop"
-        imageUrl="img/ic_wishlist_banner.png"
-      />
+      <HeroSection pageName="wishlist" />
 
       {/* Wishlist Section */}
       <section className="wishlist-section">

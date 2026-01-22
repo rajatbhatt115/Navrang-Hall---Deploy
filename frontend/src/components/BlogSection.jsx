@@ -1,36 +1,36 @@
+import { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import api from '../api'
 
 const BlogSection = () => {
-  const mainBlog = {
-    id: 1,
-    title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-    author: 'Kiran Patel',
-    date: '20 May 2023',
-    image: 'img/blog1.png',
-    authorImage: 'img/ic_kiran.png'
+  const [blogData, setBlogData] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+ useEffect(() => {
+  const fetchBlogData = async () => {
+    try {
+      const response = await api.getBlogHome();
+      setBlogData(response.data);  // response.data use karein
+    } catch (error) {
+      console.error('Error fetching blog data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchBlogData();
+}, []);
+
+  if (loading) {
+    return <div>Loading blogs...</div>
   }
 
-  const smallBlogs = [
-    {
-      id: 2,
-      title: 'Berbeza dari pendapat umum yang popular, Lorem Ipsum bukan karya text secara rambang.',
-      excerpt: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      author: 'Neha Bhatt',
-      date: '20 May 2023',
-      image: 'img/ic_blog3.png',
-      authorImage: 'img/ic_neha.png'
-    },
-    {
-      id: 3,
-      title: 'Sejumlah text seragam Lorem Ipsum yang digunakan semenjak 1500an di terbitkan di bawah ini untuk mereka yang berminat.',
-      excerpt: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
-      author: 'Ankit Patil',
-      date: '14 April 2023',
-      image: 'img/ic_blog4.png',
-      authorImage: 'img/ic_ankit.png'
-    }
-  ]
+  if (!blogData) {
+    return null
+  }
+
+  const { mainBlog, smallBlogs } = blogData
 
   return (
     <section className="blog-section">

@@ -1,125 +1,87 @@
-import { useState } from 'react'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import HeroSection from '../components/HeroSection'
-import { FaHeart, FaMinus, FaPlus, FaStar, FaPaperPlane, FaEye, FaRedo } from 'react-icons/fa'
+import { useState, useEffect } from 'react';
+import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import HeroSection from '../components/HeroSection';
+import api from '../api';
+import { FaHeart, FaMinus, FaPlus, FaStar, FaPaperPlane, FaEye, FaRedo } from 'react-icons/fa';
 
 const InnerProduct = () => {
-  const [mainImage, setMainImage] = useState('/img/img_lg1.png')
-  const [selectedSize, setSelectedSize] = useState('XS')
-  const [quantity, setQuantity] = useState(2)
-  const [activeTab, setActiveTab] = useState('details')
-  const [wishlisted, setWishlisted] = useState(false)
-  const [userRating, setUserRating] = useState(0)
-  const [showPreview, setShowPreview] = useState(false)
+  const [mainImage, setMainImage] = useState('/img/img_lg1.png');
+  const [selectedSize, setSelectedSize] = useState('XS');
+  const [quantity, setQuantity] = useState(2);
+  const [activeTab, setActiveTab] = useState('details');
+  const [wishlisted, setWishlisted] = useState(false);
+  const [userRating, setUserRating] = useState(0);
+  const [showPreview, setShowPreview] = useState(false);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [reviewForm, setReviewForm] = useState({
     firstName: '',
     lastName: '',
     rating: 0,
     comment: ''
-  })
+  });
 
-  const product = {
-    name: "Women's Summer Dress",
-    price: 2000,
-    rating: 4.9,
-    images: [
-      { thumb: '/img/img_sm1.png', large: '/img/img_lg1.png' },
-      { thumb: '/img/img_sm2.png', large: '/img/img_lg2.png' },
-      { thumb: '/img/img_sm3.png', large: '/img/img_lg3.png' }
-    ],
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL']
-  }
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await api.getProductDetails(1);
+        setProduct(response.data);
+        if (response.data.images.length > 0) {
+          setMainImage(response.data.images[0].large);
+        }
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const reviews = [
-    {
-      id: 1,
-      name: 'Priya Sharma',
-      rating: 4,
-      text: 'Excellent quality! The dress fits perfectly and the fabric is very comfortable. I\'ve received so many compliments!',
-      avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-    },
-    {
-      id: 2,
-      name: 'Rahul Verma',
-      rating: 5,
-      text: 'Best purchase ever! The stitching is excellent and the color looks exactly like in the picture. Very fast delivery too!',
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 3,
-      name: 'Anjali Patel',
-      rating: 4,
-      text: 'Love this dress! Perfect for summer parties. The quality exceeded my expectations. Will definitely buy again.',
-      avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 4,
-      name: 'Vikram Singh',
-      rating: 3,
-      text: 'Good quality fabric, but the size was slightly smaller than expected. Would recommend ordering one size up.',
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 5,
-      name: 'Neha Gupta',
-      rating: 4,
-      text: 'Beautiful design and perfect for office wear. The material is breathable and doesn\'t wrinkle easily.',
-      avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80'
-    },
-    {
-      id: 6,
-      name: 'Raj Malhotra',
-      rating: 5,
-      text: 'Perfect fit and amazing quality! I\'ve ordered 3 more dresses from this store. Highly recommended!',
-      avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80'
-    }
-  ]
-
-  const totalPrice = product.price * quantity
+    fetchProduct();
+  }, []);
 
   const handleQuantityChange = (change) => {
-    const newQuantity = quantity + change
+    const newQuantity = quantity + change;
     if (newQuantity >= 1) {
-      setQuantity(newQuantity)
+      setQuantity(newQuantity);
     }
-  }
+  };
 
   const handleSizeSelect = (size) => {
-    setSelectedSize(size)
-  }
+    setSelectedSize(size);
+  };
 
   const handleWishlistToggle = () => {
-    setWishlisted(!wishlisted)
-    alert(wishlisted ? 'Removed from wishlist' : 'Added to wishlist')
-  }
+    setWishlisted(!wishlisted);
+    alert(wishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+  };
 
   const handleRatingClick = (rating) => {
-    setUserRating(rating)
-    setReviewForm({ ...reviewForm, rating })
-  }
+    setUserRating(rating);
+    setReviewForm({ ...reviewForm, rating });
+  };
 
   const handleReviewChange = (e) => {
     setReviewForm({
       ...reviewForm,
       [e.target.name]: e.target.value
-    })
-  }
+    });
+  };
 
   const handleReviewSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (!reviewForm.firstName || !reviewForm.lastName || !reviewForm.comment || reviewForm.rating === 0) {
-      alert('Please fill in all fields and select a rating.')
-      return
+      alert('Please fill in all fields and select a rating.');
+      return;
     }
-    alert('Review submitted successfully!')
+    alert('Review submitted successfully!');
     setReviewForm({
       firstName: '',
       lastName: '',
       rating: 0,
       comment: ''
-    })
-    setUserRating(0)
-  }
+    });
+    setUserRating(0);
+  };
 
   const renderStars = (rating, interactive = false) => {
     return [...Array(5)].map((_, index) => (
@@ -133,18 +95,22 @@ const InnerProduct = () => {
           marginRight: '2px'
         }}
       />
-    ))
+    ));
+  };
+
+  if (loading) {
+    return <div>Loading product...</div>;
   }
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+  const totalPrice = product.price * quantity;
 
   return (
     <>
-      
-
-      <HeroSection
-        title="Product Details"
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        imageUrl={window.location.origin + "/img/img_banner_shop.png"}
-      />
+      <HeroSection pageName="product" />
 
       {/* Product Detail Section */}
       <section className="product-detail-section">
@@ -253,25 +219,7 @@ const InnerProduct = () => {
             {/* Product Details Tab */}
             {activeTab === 'details' && (
               <div className="tab-pane active" id="details">
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-                  the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                  of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                  but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                  popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                  and more recently with desktop publishing software like Aldus PageMaker including versions of
-                  Lorem Ipsum.</p>
-
-                <p>It is a long established fact that a reader will be distracted by the readable content of a page
-                  when looking at its layout.</p>
-
-                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
-                  alteration in some form, by injected humour, or randomised words which don't look even slightly
-                  believable.</p>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                  labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                  laboris nisi ut aliquip ex ea commodo consequat. Duis aute dolor in reprehenderit in voluptate
-                  velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p>{product.description}</p>
               </div>
             )}
 
@@ -280,15 +228,15 @@ const InnerProduct = () => {
               <div className="tab-pane" id="reviews">
                 <div className="reviews-header">
                   <div className="stars">
-                    {renderStars(4)}
+                    {renderStars(Math.floor(product.rating))}
                     <FaStar className="star-empty" />
                   </div>
-                  <span className="reviews-count">(4.9) • <span id="totalReviews">4,87,162</span> Reviews</span>
+                  <span className="reviews-count">({product.rating}) • {product.reviews.length} Reviews</span>
                 </div>
 
                 {/* Reviews Container */}
                 <div className="reviews-container">
-                  {reviews.slice(0, 6).map(review => (
+                  {product.reviews.map(review => (
                     <div className="review-card" key={review.id}>
                       <div className="review-header">
                         <div 
@@ -417,7 +365,7 @@ const InnerProduct = () => {
         </Container>
       </section>
     </>
-  )
-}
+  );
+};
 
-export default InnerProduct
+export default InnerProduct;
