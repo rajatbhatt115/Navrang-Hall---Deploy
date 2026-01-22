@@ -1,0 +1,71 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Elegant Evening Dress",
+      "price": 2000,
+      "category": "Female",
+      "sizes": ["S", "M", "L"],
+      "rating": 4.9,
+      "image": "img/western.png",
+      "isNew": true,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "id": 2,
+      "title": "Floral Summer Dress",
+      "price": 2500,
+      "category": "Female",
+      "sizes": ["M", "L", "XL"],
+      "rating": 4.8,
+      "image": "img/img_dress.png",
+      "isNew": false,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "id": 3,
+      "title": "Casual Party Wear",
+      "price": 2000,
+      "category": "Female",
+      "sizes": ["S", "M"],
+      "rating": 4.9,
+      "image": "img/img_western.png",
+      "isNew": true,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    },
+    {
+      "id": 4,
+      "title": "Designer Saree",
+      "price": 3500,
+      "category": "Female",
+      "sizes": ["M", "L", "XL"],
+      "rating": 4.9,
+      "image": "img/saree.png",
+      "isNew": false,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    }
+  ],
+  "blogs": [
+    {
+      "id": 1,
+      "title": "Lorem Ipsum is simply dummy text",
+      "content": "There are many variations of passages of Lorem Ipsum available...",
+      "author": "Kiran Patel",
+      "date": "20 May 2023",
+      "image": "img/blog1.png",
+      "authorImage": "img/ic_kiran.png"
+    },
+    {
+      "id": 2,
+      "title": "The generated Lorem Ipsum",
+      "content": "The generated Lorem Ipsum is therefore always free from repetition...",
+      "author": "Kishan Patel",
+      "date": "30 May 2023",
+      "image": "img/blog2.png",
+      "authorImage": "img/ic_kishan.png"
+    }
+  ],
+  "cart": [],
+  "wishlist": [],
+  "users": []
+}

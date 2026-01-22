@@ -1,0 +1,41 @@
+import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+
+const AboutSection = () => {
+  return (
+    <section className="about-section">
+      <Container>
+        <Row className="align-items-center about-mob">
+          {/* LEFT IMAGE */}
+          <Col lg={6}>
+            <div className="position-relative">
+              <img 
+                src="img/img_about-Photoroom.png" 
+                alt="About Us" 
+                className="img-fluid" 
+                style={{ textAlign: 'center' }}
+              />
+            </div>
+          </Col>
+
+          {/* RIGHT CONTENT */}
+          <Col lg={6}>
+            <div className="about-box">
+              <h2>About Us.</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation.
+              </p>
+              <Link to="/about">
+                <button className="btn-read-more">Read More</button>
+              </Link>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </section>
+  )
+}
+
+export default AboutSection
