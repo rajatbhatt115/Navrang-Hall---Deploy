@@ -1098,6 +1098,14 @@ textarea.form-control {
     color: var(--primary-orange);
 }
 
+
+    .bg-white
+    {
+            padding: 10px 0 !important;
+    }
+
+
+
 /* =============== RESPONSIVE STYLES =============== */
 
 @media (max-width: 992px) {
@@ -1221,6 +1229,16 @@ textarea.form-control {
     .top-bar .text-end {
         text-align: center !important;
     }
+
+    .top-bar
+    {
+        padding: 0 !important;
+    }
+
+    .bg-white
+    {
+            padding: 0 !important;
+    }
 }
 
 @media (max-width: 576px) {
@@ -1301,6 +1319,11 @@ textarea.form-control {
     gap: 12px;
 }
 
+.bg-white
+    {
+            padding: 0 !important;
+    }
+
 .author-avatar {
     width: 40px;
     height: 40px;
@@ -1324,6 +1347,11 @@ textarea.form-control {
     font-size: 13px;
     color: #999;
 }
+
+.top-bar
+    {
+        padding: 10px 0;
+    }
 
 /* Small Blog Cards */
 .small-blog-card {
