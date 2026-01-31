@@ -13,8 +13,8 @@ const Footer = () => {
                 <FaShoppingBag style={{ color: '#FF7E00' }} />
               </div>
               <div>
-                <strong>SHREE LAXMI</strong><br />
-                <small>MALL</small>
+                <strong>NAVRANG</strong><br />
+                <small>HALL</small>
               </div>
             </div>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>

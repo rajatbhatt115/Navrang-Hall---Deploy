@@ -70,8 +70,8 @@ const NavigationBar = () => {
               <FaShoppingBag />
             </div>
             <div>
-              <strong>SHREE LAXMI</strong><br />
-              <small>MALL</small>
+              <strong>NAVRANG</strong><br />
+              <small>HALL</small>
             </div>
           </Navbar.Brand>
 
