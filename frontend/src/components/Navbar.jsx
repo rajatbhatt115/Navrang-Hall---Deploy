@@ -71,7 +71,7 @@ const NavigationBar = () => {
             </div>
             <div>
               <strong>NAVRANG</strong><br />
-              <small>HALL</small>
+              <strong>HALL</strong>
             </div>
           </Navbar.Brand>
 
