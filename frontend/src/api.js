@@ -1,8 +1,9 @@
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.PROD
-  ? import.meta.env.VITE_API_LIVE
-  : import.meta.env.VITE_API_LOCAL;
+const API_BASE_URL =
+  import.meta.env.VITE_API_LIVE ||
+  import.meta.env.VITE_API_LOCAL ||
+  'https://navrang-hall-backend.onrender.com/api';
 
 const api = {
   // ==================== COMMON ====================

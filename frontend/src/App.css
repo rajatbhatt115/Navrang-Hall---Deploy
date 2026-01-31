@@ -339,27 +339,27 @@ footer a {
 }
 
 .rating-image-kids2 {
-    background-image: url("img/kids_dress.jpg");
+    background-image: url("/frontend/public/img/kids_dress.jpg");
     background-repeat: no-repeat;
     background-position: center !important;
 }
 
 .rating-image-kids3 {
-    background-image: url("img/kids_jeans.jpg");
+    background-image: url("/frontend/public/img/kids_jeans.jpg");
     background-repeat: no-repeat;
     background-position: center !important;
 }
 
 .rating-image-women1 {
-    background-image: url("img/western.png");
+    background-image: url("/frontend/public/img/western.png");
 }
 
 .rating-image-women2 {
-    background-image: url("img/gown.png");
+    background-image: url("/frontend/public/img/gown.png");
 }
 
 .rating-image-women3 {
-    background-image: url("img/saree.png");
+    background-image: url("/frontend/public/img/saree.png");
 }
 
 .rating-image-jewellery1 {
