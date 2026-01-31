@@ -128,12 +128,47 @@
         {
           "id": 1,
           "year": "2015",
-          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
+          "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam."
         },
         {
           "id": 2,
           "year": "2016",
-          "text": "Expanded to 3 new locations and introduced our premium clothing line. Received 'Best New Retailer' award."
+          "text": "Expanded to 3 new locations and introduced our premium clothing line. Received the 'Best New Retailer' award."
+        },
+        {
+          "id": 3,
+          "year": "2017",
+          "text": "Launched our official e-commerce platform, making our products available nationwide for the first time."
+        },
+        {
+          "id": 4,
+          "year": "2018",
+          "text": "Crossed 50,000 happy customers and partnered with leading fashion brands to expand our collection."
+        },
+        {
+          "id": 5,
+          "year": "2019",
+          "text": "Introduced exclusive designer wear and expanded our team to strengthen customer support and operations."
+        },
+        {
+          "id": 6,
+          "year": "2020",
+          "text": "Adapted to digital growth by enhancing online shopping experience and launching home delivery services."
+        },
+        {
+          "id": 7,
+          "year": "2021",
+          "text": "Opened flagship store and added sustainable and eco-friendly fashion lines to our catalog."
+        },
+        {
+          "id": 8,
+          "year": "2022",
+          "text": "Achieved record-breaking sales and launched loyalty programs to reward our long-term customers."
+        },
+        {
+          "id": 9,
+          "year": "2023",
+          "text": "Expanded presence across multiple cities and strengthened our brand as a trusted fashion destination."
         }
       ]
     }
@@ -642,7 +677,7 @@
       "image": "img/img_ankit.png"
     }
   ],
-   "cartItems": [
+  "cartItems": [
     {
       "id": 1,
       "name": "Dress Name",
@@ -704,6 +739,17 @@
       "unitPrice": 4000,
       "quantity": 1,
       "inStock": false
+    },
+    {
+      "name": "Bridal Lehenga",
+      "image": "img/fe1.png",
+      "color": "Green",
+      "size": "S",
+      "unitPrice": 5500,
+      "price": 5500,
+      "quantity": 1,
+      "inStock": true,
+      "id": 5
     }
   ],
   "productDetails": [

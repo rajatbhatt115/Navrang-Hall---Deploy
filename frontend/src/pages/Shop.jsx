@@ -17,22 +17,34 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [showMenu, setShowMenu] = useState('');
   const [loading, setLoading] = useState(true);
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const productsPerPage = 6;
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchAllData = async () => {
       try {
-        const response = await api.getProducts();
-        setProducts(response.data);
-        setFilteredProducts(response.data);
+        // Fetch products
+        const productsResponse = await api.getProducts();
+        setProducts(productsResponse.data);
+        setFilteredProducts(productsResponse.data);
+        
+        // Fetch wishlist items
+        const wishlistResponse = await api.getWishlistItems();
+        setWishlistItems(wishlistResponse.data);
+        
+        // Fetch cart items
+        const cartResponse = await api.getCartItems();
+        setCartItems(cartResponse.data);
+        
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchAllData();
   }, []);
 
   useEffect(() => {
@@ -142,6 +154,159 @@ const Shop = () => {
     return stars
   };
 
+  // Helper function to get random color
+  const getRandomColor = () => {
+    const colors = ['Red', 'Blue', 'Green', 'Black', 'White', 'Orange', 'Pink', 'Purple', 'Yellow'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  // Add to Wishlist Function
+  const addToWishlist = async (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      // Check if already in wishlist
+      const isAlreadyInWishlist = wishlistItems.some(item => item.name === product.title);
+      
+      if (!isAlreadyInWishlist) {
+        // Prepare wishlist item data
+        const wishlistItem = {
+          name: product.title,
+          image: product.image,
+          color: getRandomColor(),
+          size: product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'M',
+          unitPrice: product.price,
+          price: product.price,
+          quantity: 1,
+          inStock: true
+        };
+        
+        console.log('Adding to wishlist:', wishlistItem);
+        
+        // Add to wishlist via API
+        const response = await api.addToWishlist(wishlistItem);
+        console.log('API Response:', response);
+        
+        // Update local state
+        setWishlistItems(prev => [...prev, response.data]);
+        
+        // Show success message
+        alert(`✓ "${product.title}" has been added to your wishlist!`);
+        
+      } else {
+        alert(`"${product.title}" is already in your wishlist!`);
+      }
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+      console.error('Error details:', error.response?.data || error.message);
+      alert(`Failed to add "${product.title}" to wishlist. Please try again.`);
+    }
+  };
+
+  // Remove from Wishlist Function
+  const removeFromWishlist = async (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      // Find the wishlist item by name
+      const wishlistItem = wishlistItems.find(item => item.name === product.title);
+      
+      if (wishlistItem) {
+        // Remove from wishlist via API
+        await api.deleteWishlistItem(wishlistItem.id);
+        
+        // Update local state
+        setWishlistItems(prev => prev.filter(item => item.id !== wishlistItem.id));
+        
+        // Show success message
+        alert(`✓ "${product.title}" has been removed from your wishlist!`);
+      }
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+      alert(`Failed to remove "${product.title}" from wishlist. Please try again.`);
+    }
+  };
+
+  // Add to Cart Function
+  const addToCart = async (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      // Check if already in cart
+      const isAlreadyInCart = cartItems.some(item => item.name === product.title);
+      
+      if (!isAlreadyInCart) {
+        // Prepare cart item data
+        const cartItem = {
+          name: product.title,
+          image: product.image,
+          color: getRandomColor(),
+          size: product.sizes && product.sizes.length > 0 ? product.sizes[0] : 'M',
+          price: product.price,
+          quantity: 1,
+          inStock: true
+        };
+        
+        console.log('Adding to cart:', cartItem);
+        
+        // Add to cart via API
+        const response = await api.addToCart(cartItem);
+        console.log('API Response:', response);
+        
+        // Update local state
+        setCartItems(prev => [...prev, response.data]);
+        
+        // Show success message
+        alert(`✓ "${product.title}" has been added to your cart!`);
+        
+      } else {
+        alert(`"${product.title}" is already in your cart!`);
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      console.error('Error details:', error.response?.data || error.message);
+      alert(`Failed to add "${product.title}" to cart. Please try again.`);
+    }
+  };
+
+  // Remove from Cart Function
+  const removeFromCart = async (product, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    try {
+      // Find the cart item by name
+      const cartItem = cartItems.find(item => item.name === product.title);
+      
+      if (cartItem) {
+        // Remove from cart via API
+        await api.deleteCartItem(cartItem.id);
+        
+        // Update local state
+        setCartItems(prev => prev.filter(item => item.id !== cartItem.id));
+        
+        // Show success message
+        alert(`✓ "${product.title}" has been removed from your cart!`);
+      }
+    } catch (error) {
+      console.error('Error removing from cart:', error);
+      alert(`Failed to remove "${product.title}" from cart. Please try again.`);
+    }
+  };
+
+  // Check if product is in wishlist
+  const isInWishlist = (product) => {
+    return wishlistItems.some(item => item.name === product.title);
+  };
+
+  // Check if product is in cart
+  const isInCart = (product) => {
+    return cartItems.some(item => item.name === product.title);
+  };
+
   const totalPages = Math.ceil(filteredProducts.length / productsPerPage)
   const startIndex = (currentPage - 1) * productsPerPage
   const endIndex = startIndex + productsPerPage
@@ -193,7 +358,7 @@ const Shop = () => {
             <div className="filter-dropdown">
               <button className="filter-btn" onClick={() => toggleMenu('category')}>
                 <span><FaThLarge /> Categories</span>
-                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
+                {showMenu === 'category' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'category' && (
                 <div className="filter-menu show">
@@ -216,7 +381,7 @@ const Shop = () => {
             <div className="filter-dropdown">
               <button className="filter-btn" onClick={() => toggleMenu('size')}>
                 <span><FaRuler /> Sizes</span>
-                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
+                {showMenu === 'size' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'size' && (
                 <div className="filter-menu show">
@@ -239,7 +404,7 @@ const Shop = () => {
             <div className="filter-dropdown">
               <button className="filter-btn" onClick={() => toggleMenu('sort')}>
                 <span><FaSort /> Sort Order</span>
-                {showMenu === 'price' ? <FaChevronUp /> : <FaChevronDown />}
+                {showMenu === 'sort' ? <FaChevronUp /> : <FaChevronDown />}
               </button>
               {showMenu === 'sort' && (
                 <div className="filter-menu show">
@@ -313,57 +478,82 @@ const Shop = () => {
           {currentProducts.length > 0 ? (
             <>
               <Row id="productsContainer">
-                {currentProducts.map(product => (
-                  <Col lg={4} md={6} key={product.id}>
-                    <Link to={`/product/${product.id}`} className="product-link">
-                      <div className="product-card">
-                        <div 
-                          className="product-image" 
-                          style={{ backgroundImage: `url(${product.image})` }}
-                        >
-                          {product.isNew && (
-                            <div className="badge-new">NEW</div>
-                          )}
-                          <div className="product-actions">
-                            <button className="action-btn" onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              alert(`Added ${product.title} to wishlist`)
-                            }}>
-                              <FaHeart />
-                            </button>
-                            <button className="action-btn" onClick={(e) => {
-                              e.preventDefault()
-                              e.stopPropagation()
-                              alert(`Added ${product.title} to cart`)
-                            }}>
-                              <FaShoppingCart />
-                            </button>
-                          </div>
-                        </div>
-                        <div className="product-info">
-                          <h3 className="product-title">{product.title}</h3>
-                          <div className="size-options">
-                            {product.sizes.map(size => (
-                              <span className="size-option" key={size}>{size}</span>
-                            ))}
-                          </div>
-                          <div className="product-footer">
-                            <div className="product-price">
-                              <span className="price-tag">₹ {product.price}</span>
+                {currentProducts.map(product => {
+                  const inWishlist = isInWishlist(product);
+                  const inCart = isInCart(product);
+                  
+                  return (
+                    <Col lg={4} md={6} key={product.id}>
+                      <Link to={`/product/${product.id}`} className="product-link">
+                        <div className="product-card">
+                          <div 
+                            className="product-image" 
+                            style={{ backgroundImage: `url(${product.image})` }}
+                          >
+                            {product.isNew && (
+                              <div className="badge-new">NEW</div>
+                            )}
+                            <div className="product-actions">
+                              <button 
+                                className="action-btn-shop" 
+                                onClick={(e) => {
+                                  if (inWishlist) {
+                                    removeFromWishlist(product, e);
+                                  } else {
+                                    addToWishlist(product, e);
+                                  }
+                                }}
+                                style={{ 
+                                  color: inWishlist ? '#FF7E00' : 'inherit',
+                                  background: inWishlist ? 'rgba(255, 255, 255, 0.1)' : 'inherit'
+                                }}
+                                title={inWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'}
+                              >
+                                <FaHeart />
+                              </button>
+                              <button 
+                                className="action-btn-shop" 
+                                onClick={(e) => {
+                                  if (inCart) {
+                                    removeFromCart(product, e);
+                                  } else {
+                                    addToCart(product, e);
+                                  }
+                                }}
+                                style={{ 
+                                  color: inCart ? '#FF7E00' : 'inherit',
+                                  background: inCart ? 'rgba(255, 126, 0, 0.1)' : 'inherit'
+                                }}
+                                title={inCart ? 'Remove from Cart' : 'Add to Cart'}
+                              >
+                                <FaShoppingCart />
+                              </button>
                             </div>
-                            <div className="product-rating" style={{marginBottom: '5px'}}>
-                              <span className="rating-value" style={{marginTop: '5px'}}>{product.rating}</span>
-                              <div className="stars">
-                                {renderStars(product.rating)}
+                          </div>
+                          <div className="product-info">
+                            <h3 className="product-title">{product.title}</h3>
+                            <div className="size-options">
+                              {product.sizes.map(size => (
+                                <span className="size-option" key={size}>{size}</span>
+                              ))}
+                            </div>
+                            <div className="product-footer">
+                              <div className="product-price">
+                                <span className="price-tag">₹ {product.price}</span>
+                              </div>
+                              <div className="product-rating" style={{marginBottom: '5px'}}>
+                                <span className="rating-value" style={{marginTop: '5px'}}>{product.rating}</span>
+                                <div className="stars">
+                                  {renderStars(product.rating)}
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </Link>
-                  </Col>
-                ))}
+                      </Link>
+                    </Col>
+                  );
+                })}
               </Row>
               
               {/* Pagination */}

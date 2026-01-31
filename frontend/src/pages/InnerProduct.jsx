@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import HeroSection from '../components/HeroSection';
 import api from '../api';
-import { FaHeart, FaMinus, FaPlus, FaPaperPlane, FaEye, FaRedo, FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
+import { FaHeart, FaMinus, FaPlus, FaPaperPlane, FaEye, FaRedo, FaStar, FaRegStar, FaStarHalfAlt, FaShoppingCart } from 'react-icons/fa';
 
 const InnerProduct = () => {
   const [mainImage, setMainImage] = useState('/img/img_lg1.png');
@@ -22,23 +23,11 @@ const InnerProduct = () => {
   });
   const [reviews, setReviews] = useState([]);
   const [currentReviewSlide, setCurrentReviewSlide] = useState(0);
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const reviewTimerRef = useRef(null);
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [showStatusModal, setShowStatusModal] = useState(false);
-
-  // Mock data structure matching the HTML
-  const mockProduct = {
-    name: "Women's Summer Dress",
-    price: 2000,
-    rating: 4.9,
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-    sizes: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
-    images: [
-      { large: '/img/img_lg1.png', thumb: '/img/img_sm1.png' },
-      { large: '/img/img_lg2.png', thumb: '/img/img_sm2.png' },
-      { large: '/img/img_lg3.png', thumb: '/img/img_sm3.png' }
-    ]
-  };
 
   // Initial reviews data
   const initialReviews = [
@@ -86,46 +75,54 @@ const InnerProduct = () => {
     }
   ];
 
-  // इसके साथ replace करें:
-useEffect(() => {
-  const fetchProduct = async () => {
-    try {
-      setLoading(true);
-      // ✅ URL से product ID get करें
-      const productId = window.location.pathname.split('/').pop();
-      
-      // ✅ API से actual product data fetch करें
-      const response = await api.getProductDetails(productId);
-      const productData = response.data;
-      
-      setProduct(productData);
-      
-      // ✅ Product के images set करें
-      if (productData.images && productData.images.length > 0) {
-        setMainImage(productData.images[0].large);
+  useEffect(() => {
+    const fetchAllData = async () => {
+      try {
+        setLoading(true);
+        
+        // ✅ URL से product ID get करें
+        const productId = window.location.pathname.split('/').pop();
+        
+        // ✅ API से actual product data fetch करें
+        const response = await api.getProductDetails(productId);
+        const productData = response.data;
+        
+        setProduct(productData);
+        
+        // ✅ Product के images set करें
+        if (productData.images && productData.images.length > 0) {
+          setMainImage(productData.images[0].large);
+        }
+        
+        // ✅ Reviews set करें
+        if (productData.reviews && productData.reviews.length > 0) {
+          setReviews(productData.reviews);
+        } else {
+          // Fallback to initial reviews
+          setReviews(initialReviews);
+        }
+        
+        // ✅ Fetch wishlist items
+        const wishlistResponse = await api.getWishlistItems();
+        setWishlistItems(wishlistResponse.data);
+        
+        // ✅ Check if current product is in wishlist
+        const isInWishlist = wishlistResponse.data.some(item => item.name === productData.name);
+        setWishlisted(isInWishlist);
+        
+        // ✅ Fetch cart items
+        const cartResponse = await api.getCartItems();
+        setCartItems(cartResponse.data);
+        
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
       }
-      
-      // ✅ Reviews set करें (यदि API में हैं)
-      if (productData.reviews && productData.reviews.length > 0) {
-        setReviews(productData.reviews);
-      } else {
-        // Fallback to initial reviews if no reviews in API
-        setReviews(initialReviews);
-      }
-      
-    } catch (error) {
-      console.error('Error fetching product:', error);
-      // Fallback to mock data if API fails
-      setProduct(mockProduct);
-      setMainImage('/img/img_lg1.png');
-      setReviews(initialReviews);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchProduct();
-}, []); // ✅ Empty dependency array means run once on mount
+    fetchAllData();
+  }, []);
 
   // Auto slide reviews
   useEffect(() => {
@@ -151,9 +148,139 @@ useEffect(() => {
     setSelectedSize(size);
   };
 
-  const handleWishlistToggle = () => {
-    setWishlisted(!wishlisted);
-    alert(wishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+  // Helper function to get random color
+  const getRandomColor = () => {
+    const colors = ['Red', 'Blue', 'Green', 'Black', 'White', 'Orange', 'Pink', 'Purple', 'Yellow'];
+    return colors[Math.floor(Math.random() * colors.length)];
+  };
+
+  // Add to Wishlist Function
+  const addToWishlist = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!product) return;
+    
+    try {
+      // Check if already in wishlist
+      const isAlreadyInWishlist = wishlistItems.some(item => item.name === product.name);
+      
+      if (!isAlreadyInWishlist) {
+        // Prepare wishlist item data
+        const wishlistItem = {
+          name: product.name,
+          image: product.images && product.images.length > 0 ? product.images[0].thumb : '/img/default.jpg',
+          color: getRandomColor(),
+          size: selectedSize,
+          unitPrice: product.price,
+          price: product.price,
+          quantity: 1,
+          inStock: true
+        };
+        
+        console.log('Adding to wishlist from product page:', wishlistItem);
+        
+        // Add to wishlist via API
+        const response = await api.addToWishlist(wishlistItem);
+        console.log('API Response:', response);
+        
+        // Update local state
+        setWishlistItems(prev => [...prev, response.data]);
+        setWishlisted(true);
+        
+        // Show success message
+        alert(`✓ "${product.name}" has been added to your wishlist!`);
+        
+      } else {
+        alert(`"${product.name}" is already in your wishlist!`);
+      }
+    } catch (error) {
+      console.error('Error adding to wishlist:', error);
+      console.error('Error details:', error.response?.data || error.message);
+      alert(`Failed to add "${product.name}" to wishlist. Please try again.`);
+    }
+  };
+
+  // Remove from Wishlist Function
+  const removeFromWishlist = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!product) return;
+    
+    try {
+      // Find the wishlist item by name
+      const wishlistItem = wishlistItems.find(item => item.name === product.name);
+      
+      if (wishlistItem) {
+        // Remove from wishlist via API
+        await api.deleteWishlistItem(wishlistItem.id);
+        
+        // Update local state
+        setWishlistItems(prev => prev.filter(item => item.id !== wishlistItem.id));
+        setWishlisted(false);
+        
+        // Show success message
+        alert(`✓ "${product.name}" has been removed from your wishlist!`);
+      }
+    } catch (error) {
+      console.error('Error removing from wishlist:', error);
+      alert(`Failed to remove "${product.name}" from wishlist. Please try again.`);
+    }
+  };
+
+  // Toggle Wishlist Function
+  const toggleWishlist = async (e) => {
+    if (wishlisted) {
+      await removeFromWishlist(e);
+    } else {
+      await addToWishlist(e);
+    }
+  };
+
+  // Add to Cart Function
+  const addToCart = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!product) return;
+    
+    try {
+      // Check if already in cart
+      const isAlreadyInCart = cartItems.some(item => item.name === product.name);
+      
+      if (!isAlreadyInCart) {
+        // Prepare cart item data
+        const cartItem = {
+          name: product.name,
+          image: product.images && product.images.length > 0 ? product.images[0].thumb : '/img/default.jpg',
+          color: getRandomColor(),
+          size: selectedSize,
+          price: product.price,
+          quantity: quantity,
+          inStock: true
+        };
+        
+        console.log('Adding to cart from product page:', cartItem);
+        
+        // Add to cart via API
+        const response = await api.addToCart(cartItem);
+        console.log('API Response:', response);
+        
+        // Update local state
+        setCartItems(prev => [...prev, response.data]);
+        
+        // Show success message
+        alert(`✓ "${product.name}" (Qty: ${quantity}) has been added to your cart!`);
+        
+      } else {
+        alert(`"${product.name}" is already in your cart!`);
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      console.error('Error details:', error.response?.data || error.message);
+      alert(`Failed to add "${product.name}" to cart. Please try again.`);
+    }
   };
 
   const handleRatingClick = (rating) => {
@@ -168,20 +295,10 @@ useEffect(() => {
     });
   };
 
-  const handleAddToCart = () => {
-    const cartItem = {
-      product: product?.name || 'Product',
-      size: selectedSize,
-      quantity: quantity,
-      price: product?.price || 0,
-      total: (product?.price || 0) * quantity
-    };
-
-    alert(`Added to cart:\nProduct: ${cartItem.product}\nSize: ${cartItem.size}\nQuantity: ${cartItem.quantity}\nTotal: ₹${cartItem.total}`);
-  };
-
   // RAZORPAY PAYMENT HANDLER FOR BUY NOW BUTTON
   const handleBuyNow = () => {
+    if (!product) return;
+    
     if (!window.Razorpay) {
       alert("Razorpay SDK not loaded. Please refresh the page.");
       return;
@@ -193,7 +310,7 @@ useEffect(() => {
       key: "rzp_test_1DP5mmOlF5G5ag", // Replace with your Razorpay key
       amount: totalPrice * 100, // Amount in paise
       currency: "INR",
-      name: "Fashion Store",
+      name: "Shree Laxmi Mall",
       description: `Product: ${product.name} - Size: ${selectedSize}`,
       image: "/img/logo.png",
       handler: function (response) {
@@ -361,7 +478,7 @@ useEffect(() => {
   }
 
   const totalPrice = product.price * quantity;
-  const totalReviews = 487162 + reviews.length - initialReviews.length; // Adjust for new reviews
+  const totalReviews = 487162 + reviews.length - initialReviews.length;
 
   return (
     <>
@@ -379,28 +496,49 @@ useEffect(() => {
                   alt="Dress"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
+                {/* Wishlist Button with Orange Stroke and White Background */}
                 <button
-                  onClick={handleWishlistToggle}
+                  onClick={toggleWishlist}
                   className="wishlist-btn"
                   style={{
                     position: 'absolute',
                     top: '20px',
                     right: '20px',
-                    width: '45px',
-                    height: '45px',
-                    background: wishlisted ? '#FF7E00' : 'white',
-                    border: 'none',
+                    width: '50px',
+                    height: '50px',
+                    background: 'white',
+                    border: wishlisted ? '2px solid #FF7E00' : '2px solid rgba(0,0,0,0.1)',
                     borderRadius: '50%',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
                     transition: 'all 0.3s',
-                    boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-                    zIndex: 10
+                    boxShadow: wishlisted 
+                      ? '0 0 15px rgba(255, 126, 0, 0.4)' 
+                      : '0 3px 10px rgba(0, 0, 0, 0.1)',
+                    zIndex: 10,
+                    padding: 0
                   }}
+                  onMouseEnter={(e) => {
+                    e.target.style.transform = 'scale(1.1)';
+                    e.target.style.borderColor = '#FF7E00';
+                    e.target.style.boxShadow = '0 5px 15px rgba(255, 126, 0, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.transform = 'scale(1)';
+                    e.target.style.borderColor = wishlisted ? '#FF7E00' : 'rgba(0,0,0,0.1)';
+                    e.target.style.boxShadow = wishlisted 
+                      ? '0 0 15px rgba(255, 126, 0, 0.4)' 
+                      : '0 3px 10px rgba(0, 0, 0, 0.1)';
+                  }}
+                  title={wishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                 >
-                  <i className={wishlisted ? 'fas fa-heart' : 'far fa-heart'} style={{ color: wishlisted ? 'white' : '#FF7E00', fontSize: '20px' }} />
+                  <FaHeart 
+                    size={22} 
+                    color={wishlisted ? '#FF7E00' : '#333'}
+                    style={{ transition: 'color 0.3s' }}
+                  />
                 </button>
               </div>
               <div className="thumbnail-container" style={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
@@ -549,7 +687,7 @@ useEffect(() => {
                       cursor: 'pointer',
                       transition: 'all 0.3s'
                     }}
-                    onClick={handleBuyNow} // Updated to use Razorpay handler
+                    onClick={handleBuyNow}
                   >
                     Buy Now
                   </button>
@@ -567,11 +705,14 @@ useEffect(() => {
                       cursor: 'pointer',
                       transition: 'all 0.3s'
                     }}
-                    onClick={handleAddToCart}
+                    onClick={addToCart}
                   >
+                    <FaShoppingCart style={{ marginRight: '8px' }} />
                     Add To Cart
                   </button>
                 </div>
+
+               
               </div>
             </Col>
           </Row>
@@ -919,7 +1060,7 @@ useEffect(() => {
                                 display: 'flex',
                                 gap: '15px',
                                 width: '100%',
-                                maxWidth: '420px' // 👈 adjust if needed
+                                maxWidth: '420px'
                               }}
                             >
                               <button
@@ -975,8 +1116,6 @@ useEffect(() => {
                               </button>
                             </div>
                           </div>
-
-
                         </Form>
                       </div>
                     </Col>
@@ -986,13 +1125,12 @@ useEffect(() => {
                         alt="Comment"
                         style={{
                           width: '100%',
-                          maxWidth: '500px',   // 🔼 yahan control
+                          maxWidth: '500px',
                           height: 'auto',
                           margin: '0 auto'
                         }}
                       />
                     </Col>
-
                   </Row>
                 </div>
               </div>

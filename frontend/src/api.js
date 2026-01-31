@@ -58,8 +58,14 @@ const api = {
   deleteCartItem: (id) => 
     axios.delete(`${API_BASE_URL}/cartItems/${id}`),
 
+    addToCart: (data) => 
+    axios.post(`${API_BASE_URL}/cartItems`, data),
+
   // ==================== WISHLIST PAGE ====================
   getWishlistItems: () => axios.get(`${API_BASE_URL}/wishlistItems`),
+
+   addToWishlist: (data) => 
+    axios.post(`${API_BASE_URL}/wishlistItems`, data),
   
   updateWishlistItem: (id, data) => 
     axios.patch(`${API_BASE_URL}/wishlistItems/${id}`, data),

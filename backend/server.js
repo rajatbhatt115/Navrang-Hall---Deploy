@@ -159,6 +159,42 @@ server.get('/api/innerBlog/:id', (req, res) => {
   }
 })
 
+// Add to Wishlist endpoint
+server.post('/api/wishlistItems', (req, res) => {
+  const db = router.db;
+  const newItem = req.body;
+  
+  // Generate ID if not provided
+  if (!newItem.id) {
+    const wishlistItems = db.get('wishlistItems').value();
+    newItem.id = wishlistItems.length > 0 
+      ? Math.max(...wishlistItems.map(item => item.id)) + 1 
+      : 1;
+  }
+  
+  // Add to wishlist
+  db.get('wishlistItems').push(newItem).write();
+  res.status(201).json(newItem);
+});
+
+// Add to Cart endpoint
+server.post('/api/cartItems', (req, res) => {
+  const db = router.db;
+  const newItem = req.body;
+  
+  // Generate ID if not provided
+  if (!newItem.id) {
+    const cartItems = db.get('cartItems').value();
+    newItem.id = cartItems.length > 0 
+      ? Math.max(...cartItems.map(item => item.id)) + 1 
+      : 1;
+  }
+  
+  // Add to cart
+  db.get('cartItems').push(newItem).write();
+  res.status(201).json(newItem);
+});
+
 // Use the router for all other endpoints
 server.use('/api', router)
 
