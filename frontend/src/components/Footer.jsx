@@ -48,7 +48,7 @@ const Footer = () => {
         
         <hr style={{ borderColor: 'rgba(255,255,255,0.3)' }} />
         <div className="text-center">
-          <p style={{ marginBottom: '0rem !important' }}>&copy; 2023 Shree Laxmi Mall. All rights reserved.</p>
+          <p style={{ marginBottom: '0rem !important' }}>&copy; 2023 Navrang Hall. All rights reserved.</p>
         </div>
       </Container>
     </footer>
