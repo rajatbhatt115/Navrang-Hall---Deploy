@@ -33,7 +33,10 @@ const ExploringSection = () => {
         <Row>
           {categories.map(category => (
             <Col md={4} key={category.id}>
-              <div className={`category-card ${category.imageClass}`}>
+              <div
+                className="category-card"
+                style={{ backgroundImage: `url(${category.image})` }}
+              >
                 <div className="category-overlay">
                   <h4>{category.title}</h4>
                   <p>{category.description}</p>

@@ -76,28 +76,28 @@
       "title": "Shop The Latest Items From Top Brands",
       "badge": "New Arrival",
       "bgColor": "#F9EC82",
-      "imageClass": "product-image1"
+      "image": "img/disc1.jpg"
     },
     {
       "id": 2,
       "title": "Exclusive Winter Collection Latest Trends",
       "badge": "Trending",
       "bgColor": "#FFE8CC",
-      "imageClass": "product-image2"
+      "image": "img/disc2.jpg"
     },
     {
       "id": 3,
       "title": "Premium Ethnic Wear Collection",
       "badge": "Limited",
       "bgColor": "#F9EC82",
-      "imageClass": "product-image3"
+      "image": "img/disc3.jpg"
     },
     {
       "id": 4,
       "title": "Summer Fashion Essentials Latest Arrivals",
       "badge": "Hot",
       "bgColor": "#FFE8CC",
-      "imageClass": "product-image4"
+      "image": "img/disc4.jpg"
     }
   ],
   "aboutContent": [
@@ -178,19 +178,19 @@
       "id": 1,
       "title": "Western Wear",
       "description": "Stylish everyday outfits for a chic modern look.",
-      "imageClass": "category1"
+      "image": "img/img_western.png"
     },
     {
       "id": 2,
       "title": "Dress",
       "description": "Elegant designer gowns crafted for special celebrations.",
-      "imageClass": "category2"
+      "image": "img/img_dress.png"
     },
     {
       "id": 3,
       "title": "Navratri",
       "description": "Vibrant ethnic styles perfect for festive occasions.",
-      "imageClass": "category3"
+      "image": "img/navratri.png"
     }
   ],
   "topRatingProducts": {
@@ -200,21 +200,21 @@
         "title": "Kids T-Shirt",
         "price": "₹1,200",
         "rating": 4,
-        "imageClass": "rating-image-kids1"
+        "image": "img/kid5.jpg"
       },
       {
         "id": 2,
         "title": "Kids Dress",
         "price": "₹2,500",
         "rating": 5,
-        "imageClass": "rating-image-kids2"
+        "image": "img/kids_dress.jpg"
       },
       {
         "id": 3,
         "title": "Kids Jeans",
         "price": "₹1,800",
         "rating": 4,
-        "imageClass": "rating-image-kids3"
+        "image": "img/kids_jeans.jpg"
       }
     ],
     "women": [
@@ -223,21 +223,21 @@
         "title": "Western",
         "price": "₹7,500",
         "rating": 4,
-        "imageClass": "rating-image-women1"
+        "image": "img/western.png"
       },
       {
         "id": 5,
         "title": "Gown",
         "price": "₹7,500",
         "rating": 5,
-        "imageClass": "rating-image-women2"
+        "image": "img/gown.png"
       },
       {
         "id": 6,
         "title": "Sarees",
         "price": "₹7,500",
         "rating": 4,
-        "imageClass": "rating-image-women3"
+        "image": "img/saree.png"
       }
     ],
     "jewellery": [
@@ -246,21 +246,21 @@
         "title": "Gold Necklace",
         "price": "₹15,000",
         "rating": 4,
-        "imageClass": "rating-image-jewellery1"
+        "image": "img/jewellery1.jpg"
       },
       {
         "id": 8,
         "title": "Silver Earrings",
         "price": "₹3,500",
         "rating": 5,
-        "imageClass": "rating-image-jewellery2"
+        "image": "img/jewellery2.jpg"
       },
       {
         "id": 9,
         "title": "Diamond Ring",
         "price": "₹25,000",
         "rating": 4,
-        "imageClass": "rating-image-jewellery3"
+        "image": "img/jewellery3.jpg"
       }
     ]
   },
@@ -269,19 +269,19 @@
       "id": 1,
       "name": "Harold Patel",
       "text": "\"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.\"",
-      "avatarClass": "testimonial-avatar1"
+      "image": "img/per1.png"
     },
     {
       "id": 2,
       "name": "Priya Sharma",
       "text": "\"I absolutely love the quality of clothes from Shree Laxmi Mall. The fabrics are premium and the designs are trendy. My friends always ask me where I shop!\"",
-      "avatarClass": "testimonial-avatar2"
+      "image": "img/per2.png"
     },
     {
       "id": 3,
       "name": "Rahul Verma",
       "text": "\"The customer service is exceptional. They helped me find the perfect outfit for my sister's wedding. The delivery was prompt and the packaging was beautiful.\"",
-      "avatarClass": "testimonial-avatar3"
+      "image": "img/per3.png"
     }
   ],
   "blogs": {

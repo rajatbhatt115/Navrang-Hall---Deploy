@@ -138,7 +138,7 @@ const RatingSection = () => {
             {products.map(product => (
               <Col md={4} key={product.id}>
                 <div className="rating-card">
-                  <div className={`rating-image ${product.imageClass}`}></div>
+                  <div className="rating-image rating-image-kids1 rating-image-women1 rating-image-jewellery1" style={{ backgroundImage: `url(${product.image})` }}></div>
                   <div className="rating-top-row">
                     <div className="left-group">
                       <h5 className="item-title">{product.title}</h5>

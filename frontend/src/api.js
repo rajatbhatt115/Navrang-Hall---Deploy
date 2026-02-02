@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const API_BASE_URL =
-  import.meta.env.VITE_API_LIVE ||
   import.meta.env.VITE_API_LOCAL ||
+  import.meta.env.VITE_API_LIVE ||
   'https://navrang-hall-backend.onrender.com/api';
 
 const api = {

@@ -52,24 +52,27 @@ const TestimonialsSection = () => {
     <section className="testimonials-section">
       <Container>
         <h2>Our Testimonials.</h2>
-        
+
         <div className="testimonial-slider">
           <button className="testimonial-arrow prev" onClick={prevSlide}>
             <FaChevronLeft />
           </button>
-          
+
           <button className="testimonial-arrow next" onClick={nextSlide}>
             <FaChevronRight />
           </button>
 
-          <div 
+          <div
             className="testimonial-track"
             style={{ transform: `translateX(-${currentSlide * 100}%)` }}
           >
             {testimonials.map(testimonial => (
               <div className="testimonial-slide" key={testimonial.id}>
                 <div className="testimonial-card">
-                  <div className={testimonial.avatarClass}></div>
+                  <div
+                    className="testimonial-avatar1"
+                    style={{ backgroundImage: `url(${testimonial.image})` }}
+                  ></div>
                   <p className="fst-italic">{testimonial.text}</p>
                   <h5>{testimonial.name}</h5>
                 </div>
