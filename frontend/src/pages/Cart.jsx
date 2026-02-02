@@ -13,43 +13,42 @@ const Cart = () => {
   const [showStatusModal, setShowStatusModal] = useState(false)
 
   useEffect(() => {
-  fetchCartItems();
-  
-  // Event listener add करें जब wishlist से item cart में move हो
-  const handleCartUpdate = () => {
     fetchCartItems();
-  };
-  
-  window.addEventListener('cartUpdated', handleCartUpdate);
-  
-  return () => {
-    window.removeEventListener('cartUpdated', handleCartUpdate);
-  };
-}, []);
 
-// Cart लिंक को highlight करने के लिए useEffect
-useEffect(() => {
-  const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]');
-  
-  cartLinks.forEach(link => {
-    link.style.color = '#FF7E00';
-    
-    const icon = link.querySelector('i, svg');
-    if (icon) {
-      icon.style.color = '#FF7E00';
-    }
-  });
+    const handleCartUpdate = () => {
+      fetchCartItems();
+    };
 
-  return () => {
+    window.addEventListener('cartUpdated', handleCartUpdate);
+
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
+  }, []);
+
+  // Cart लिंक को highlight करने के लिए useEffect
+  useEffect(() => {
+    const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]');
+
     cartLinks.forEach(link => {
-      link.style.color = '';
+      link.style.color = '#FF7E00';
+
       const icon = link.querySelector('i, svg');
       if (icon) {
-        icon.style.color = '';
+        icon.style.color = '#FF7E00';
       }
     });
-  };
-}, []);
+
+    return () => {
+      cartLinks.forEach(link => {
+        link.style.color = '';
+        const icon = link.querySelector('i, svg');
+        if (icon) {
+          icon.style.color = '';
+        }
+      });
+    };
+  }, []);
 
   const fetchCartItems = async () => {
     try {
@@ -65,9 +64,9 @@ useEffect(() => {
   const updateQuantity = async (id, change) => {
     const item = cartItems.find(item => item.id === id)
     if (!item) return
-    
+
     const newQuantity = Math.max(1, item.quantity + change)
-    
+
     try {
       await api.updateCartItem(id, { quantity: newQuantity })
       setCartItems(prevItems =>
@@ -139,7 +138,7 @@ useEffect(() => {
         console.log("Payment Successful:", response)
         setPaymentStatus('success')
         setShowStatusModal(true)
-        
+
         // Clear cart after successful payment
         setTimeout(() => {
           setCartItems([])
@@ -188,31 +187,8 @@ useEffect(() => {
 
   const { subtotal, shipping, tax, total } = calculateTotals()
 
-  useEffect(() => {
-    const cartLinks = document.querySelectorAll('a[href*="cart"], a[href="/cart"]')
-    
-    cartLinks.forEach(link => {
-      link.style.color = '#FF7E00'
-      
-      const icon = link.querySelector('i, svg')
-      if (icon) {
-        icon.style.color = '#FF7E00'
-      }
-    })
-
-    return () => {
-      cartLinks.forEach(link => {
-        link.style.color = ''
-        const icon = link.querySelector('i, svg')
-        if (icon) {
-          icon.style.color = ''
-        }
-      })
-    }
-  }, [])
-
   if (loading) {
-    return <div>Loading cart...</div>
+    return <div className="cart-loading">Loading cart...</div>
   }
 
   return (
@@ -220,256 +196,77 @@ useEffect(() => {
       <HeroSection pageName="cart" />
 
       {/* Cart Section */}
-      <section style={{ 
-        padding: '60px 0',
-        background: 'white'
-      }}>
+      <section className="cart-section">
         <Container>
           <Row>
             {/* Cart Items */}
             <Col lg={8}>
               {cartItems.length === 0 ? (
-                <div style={{
-                  textAlign: 'center',
-                  padding: '80px 20px',
-                  display: 'block'
-                }}>
-                  <FaShoppingCart size={80} style={{ color: '#FF7E00', marginBottom: '20px' }} />
-                  <h3 style={{
-                    fontSize: '28px',
-                    fontWeight: '700',
-                    color: '#2D2D2D',
-                    marginBottom: '15px'
-                  }}>Your Cart is Empty</h3>
-                  <p style={{ color: '#666', marginBottom: '30px' }}>
-                    Looks like you haven't added anything to your cart yet.
-                  </p>
-                  <a href="/shop" style={{
-                    background: '#FF7E00',
-                    color: 'white',
-                    padding: '12px 40px',
-                    borderRadius: '25px',
-                    border: 'none',
-                    fontWeight: '600',
-                    transition: 'all 0.3s',
-                    textDecoration: 'none',
-                    display: 'inline-block'
-                  }}>Start Shopping</a>
+                <div className="empty-cart">
+                  <FaShoppingCart className="empty-cart-icon" />
+                  <h3>Your Cart is Empty</h3>
+                  <p>Looks like you haven't added anything to your cart yet.</p>
+                  <a href="/shop" className="btn-shop-now">Start Shopping</a>
                 </div>
               ) : (
-                <div>
+                <div className="cart-items-list">
                   {cartItems.map(item => (
-                    <div key={item.id} style={{
-                      background: 'white',
-                      borderRadius: '15px',
-                      padding: '20px',
-                      marginBottom: '25px',
-                      boxShadow: '0 2px 15px rgba(0, 0, 0, 0.08)',
-                      transition: 'all 0.3s ease',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '20px',
-                      position: 'relative'
-                    }}>
-                      <button 
-                        style={{
-                          position: 'absolute',
-                          top: '15px',
-                          right: '15px',
-                          width: '35px',
-                          height: '35px',
-                          borderRadius: '50%',
-                          background: 'white',
-                          color: '#FF7E00',
-                          border: 'none',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                          transition: 'all 0.3s',
-                          fontSize: '16px'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.target.style.background = '#FF7E00'
-                          e.target.style.color = 'white'
-                          e.target.style.transform = 'scale(1.1)'
-                        }}
-                        onMouseLeave={(e) => {
-                          e.target.style.background = 'white'
-                          e.target.style.color = '#FF7E00'
-                          e.target.style.transform = 'scale(1)'
-                        }}
+                    <div key={item.id} className="cart-item">
+                      <button
+                        className="cart-item-delete-btn"
                         onClick={() => openDeleteModal(item.id)}
                       >
                         <FaTrash />
                       </button>
 
-                      <div style={{
-                        width: '130px',
-                        height: '130px',
-                        borderRadius: '15px',
-                        overflow: 'hidden',
-                        flexShrink: 0
-                      }}>
-                        <img 
-                          src={item.image} 
+                      <div className="cart-item-image">
+                        <img
+                          src={item.image}
                           alt={item.name}
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover'
-                          }}
                         />
                       </div>
 
-                      <div style={{ flex: 1 }}>
-                        <h5 style={{
-                          fontSize: '20px',
-                          fontWeight: '700',
-                          color: '#2D2D2D',
-                          marginBottom: '10px'
-                        }}>{item.name}</h5>
-                        
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          marginBottom: '8px',
-                          fontSize: '14px'
-                        }}>
-                          <span style={{
-                            fontWeight: '600',
-                            color: '#2D2D2D',
-                            marginRight: '5px'
-                          }}>Color :</span>
-                          <span style={{ color: '#666' }}>{item.color}</span>
+                      <div className="cart-item-details">
+                        <h5>{item.name}</h5>
+
+                        <div className="cart-item-info">
+                          <span className="detail-label">Color :</span>
+                          <span className="detail-value">{item.color}</span>
                         </div>
-                        
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          marginBottom: '8px',
-                          fontSize: '14px'
-                        }}>
-                          <span style={{
-                            fontWeight: '600',
-                            color: '#2D2D2D',
-                            marginRight: '5px'
-                          }}>Size :</span>
-                          <span style={{ color: '#666' }}>{item.size}</span>
+
+                        <div className="cart-item-info">
+                          <span className="detail-label">Size :</span>
+                          <span className="detail-value">{item.size}</span>
                         </div>
-                        
-                        <div style={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: '5px',
-                          padding: '5px 12px',
-                          borderRadius: '20px',
-                          fontSize: '13px',
-                          fontWeight: '600',
-                          backgroundColor: item.inStock ? '#d4edda' : '#f8d7da',
-                          color: item.inStock ? '#155724' : '#721c24'
-                        }}>
+
+                        <div className={`stock-status ${item.inStock ? 'in-stock' : 'sold-out'}`}>
                           {item.inStock ? <FaCheckCircle /> : <FaTimesCircle />}
                           {item.inStock ? 'In Stock' : 'Sold Out'}
                         </div>
                       </div>
 
-                      <div style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '20px'
-                      }}>
-                        <div style={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: '12px',
-                          marginBottom: '0px'
-                        }}>
-                          <button 
-                            style={{
-                              width: '35px',
-                              height: '35px',
-                              borderRadius: '5px',
-                              background: 'white',
-                              border: '2px solid #e0e0e0',
-                              color: '#2D2D2D',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              cursor: item.inStock ? 'pointer' : 'not-allowed',
-                              transition: 'all 0.3s',
-                              fontSize: '16px',
-                              fontWeight: '600',
-                              opacity: item.inStock ? 1 : 0.5
-                            }}
-                            onMouseEnter={(e) => {
-                              if (item.inStock) {
-                                e.target.style.borderColor = '#FF7E00'
-                                e.target.style.color = '#FF7E00'
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if (item.inStock) {
-                                e.target.style.borderColor = '#e0e0e0'
-                                e.target.style.color = '#2D2D2D'
-                              }
-                            }}
+                      <div className="cart-item-actions">
+                        <div className="quantity-controls">
+                          <button
+                            className="quantity-btn minus"
                             onClick={() => updateQuantity(item.id, -1)}
                             disabled={!item.inStock}
                           >
                             <FaMinus />
                           </button>
-                          
-                          <span style={{
-                            minWidth: '30px',
-                            textAlign: 'center',
-                            fontWeight: '600',
-                            color: '#2D2D2D'
-                          }}>{item.quantity}</span>
-                          
-                          <button 
-                            style={{
-                              width: '35px',
-                              height: '35px',
-                              borderRadius: '5px',
-                              background: 'white',
-                              border: '2px solid #e0e0e0',
-                              color: '#2D2D2D',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              cursor: item.inStock ? 'pointer' : 'not-allowed',
-                              transition: 'all 0.3s',
-                              fontSize: '16px',
-                              fontWeight: '600',
-                              opacity: item.inStock ? 1 : 0.5
-                            }}
-                            onMouseEnter={(e) => {
-                              if (item.inStock) {
-                                e.target.style.borderColor = '#FF7E00'
-                                e.target.style.color = '#FF7E00'
-                              }
-                            }}
-                            onMouseLeave={(e) => {
-                              if (item.inStock) {
-                                e.target.style.borderColor = '#e0e0e0'
-                                e.target.style.color = '#2D2D2D'
-                              }
-                            }}
+
+                          <span className="quantity-value">{item.quantity}</span>
+
+                          <button
+                            className="quantity-btn plus"
                             onClick={() => updateQuantity(item.id, 1)}
                             disabled={!item.inStock}
                           >
                             <FaPlus />
                           </button>
                         </div>
-                        
-                        <div style={{
-                          fontSize: '20px',
-                          fontWeight: '700',
-                          color: '#2D2D2D',
-                          minWidth: '80px',
-                          textAlign: 'right'
-                        }}>
+
+                        <div className="cart-item-price">
                           ₹ {(item.price * item.quantity).toFixed(2)}
                         </div>
                       </div>
@@ -481,97 +278,36 @@ useEffect(() => {
 
             {/* Order Summary */}
             <Col lg={4}>
-              <div style={{
-                background: 'white',
-                borderRadius: '20px',
-                padding: '30px',
-                boxShadow: '0 5px 25px rgba(0, 0, 0, 0.1)',
-                position: 'sticky',
-                top: '20px'
-              }}>
-                <h4 style={{
-                  fontSize: '24px',
-                  fontWeight: '700',
-                  color: '#2D2D2D',
-                  marginBottom: '25px',
-                  paddingBottom: '15px',
-                  borderBottom: '2px solid #f0f0f0'
-                }}>Order Summary</h4>
-                
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '15px',
-                  fontSize: '16px'
-                }}>
-                  <span style={{ color: '#666' }}>Subtotal</span>
-                  <span style={{ fontWeight: '600', color: '#2D2D2D' }}>₹ {subtotal.toFixed(2)}</span>
+              <div className="order-summary">
+                <h4>Order Summary</h4>
+
+                <div className="summary-row">
+                  <span className="summary-label">Subtotal</span>
+                  <span className="summary-value">₹ {subtotal.toFixed(2)}</span>
                 </div>
-                
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '15px',
-                  fontSize: '16px'
-                }}>
-                  <span style={{ color: '#666' }}>Shipping estimate</span>
-                  <span style={{ fontWeight: '600', color: '#2D2D2D' }}>₹ {shipping.toFixed(2)}</span>
+
+                <div className="summary-row">
+                  <span className="summary-label">Shipping estimate</span>
+                  <span className="summary-value">₹ {shipping.toFixed(2)}</span>
                 </div>
-                
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginBottom: '15px',
-                  fontSize: '16px'
-                }}>
-                  <span style={{ color: '#666' }}>Tax estimate</span>
-                  <span style={{ fontWeight: '600', color: '#2D2D2D' }}>₹ {tax.toFixed(2)}</span>
+
+                <div className="summary-row">
+                  <span className="summary-label">Tax estimate</span>
+                  <span className="summary-value">₹ {tax.toFixed(2)}</span>
                 </div>
-                
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginTop: '20px',
-                  paddingTop: '20px',
-                  borderTop: '2px solid #f0f0f0'
-                }}>
-                  <span style={{ fontSize: '18px', fontWeight: '700', color: '#2D2D2D' }}>Order Total</span>
-                  <span style={{ fontSize: '22px', fontWeight: '700', color: '#FF7E00' }}>₹ {total.toFixed(2)}</span>
+
+                <div className="summary-total">
+                  <span className="total-label">Order Total</span>
+                  <span className="total-value">₹ {total.toFixed(2)}</span>
                 </div>
-                
-                <Button 
-                  style={{
-                    width: '100%',
-                    background: cartItems.length === 0 ? '#ccc' : '#FF7E00',
-                    color: 'white',
-                    padding: '15px',
-                    borderRadius: '30px',
-                    border: 'none',
-                    fontWeight: '600',
-                    fontSize: '16px',
-                    cursor: cartItems.length === 0 ? 'not-allowed' : 'pointer',
-                    transition: 'all 0.3s',
-                    marginTop: '20px'
-                  }}
-                  onMouseEnter={(e) => {
-                    if (cartItems.length > 0) {
-                      e.target.style.background = '#E38B50'
-                      e.target.style.transform = 'translateY(-2px)'
-                      e.target.style.boxShadow = '0 5px 20px rgba(255, 126, 0, 0.3)'
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (cartItems.length > 0) {
-                      e.target.style.background = '#FF7E00'
-                      e.target.style.transform = 'translateY(0)'
-                      e.target.style.boxShadow = 'none'
-                    }
-                  }}
+
+                <button
+                  className={`checkout-btn ${cartItems.length === 0 ? 'disabled' : ''}`}
                   onClick={handleCheckout}
                   disabled={cartItems.length === 0}
                 >
                   {cartItems.length === 0 ? 'Cart Empty' : 'Check Out'}
-                </Button>
+                </button>
               </div>
             </Col>
           </Row>
@@ -580,83 +316,21 @@ useEffect(() => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div style={{
-          display: 'flex',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 1000,
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <div style={{
-            background: 'white',
-            borderRadius: '20px',
-            padding: '40px',
-            maxWidth: '400px',
-            width: '90%',
-            textAlign: 'center',
-            animation: 'modalSlideIn 0.3s ease'
-          }}>
-            <FaExclamationCircle size={60} style={{ color: '#FF7E00', marginBottom: '20px' }} />
-            <h4 style={{
-              fontSize: '24px',
-              fontWeight: '700',
-              color: '#2D2D2D',
-              marginBottom: '15px'
-            }}>Remove Item?</h4>
-            <p style={{ color: '#666', marginBottom: '30px', lineHeight: '1.6' }}>
-              Are you sure you want to remove this item from your cart?
-            </p>
-            <div style={{ display: 'flex', gap: '15px', justifyContent: 'center' }}>
-              <button 
-                style={{
-                  padding: '12px 30px',
-                  borderRadius: '25px',
-                  background: 'white',
-                  color: '#2D2D2D',
-                  border: '2px solid #e0e0e0',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  fontSize: '16px'
-                }}
+        <div className="confirmation-modal show">
+          <div className="modal-content-custom">
+            <FaExclamationCircle className="modal-icon" />
+            <h4>Remove Item?</h4>
+            <p>Are you sure you want to remove this item from your cart?</p>
+            <div className="modal-buttons">
+              <button
+                className="modal-btn cancel"
                 onClick={closeDeleteModal}
-                onMouseEnter={(e) => {
-                  e.target.style.background = '#f8f9fa'
-                  e.target.style.borderColor = '#2D2D2D'
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'white'
-                  e.target.style.borderColor = '#e0e0e0'
-                }}
               >
                 Cancel
               </button>
-              <button 
-                style={{
-                  padding: '12px 30px',
-                  borderRadius: '25px',
-                  background: '#FF7E00',
-                  color: 'white',
-                  border: 'none',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s',
-                  fontSize: '16px'
-                }}
+              <button
+                className="modal-btn confirm"
                 onClick={confirmDelete}
-                onMouseEnter={(e) => {
-                  e.target.style.background = '#E38B50'
-                  e.target.style.transform = 'scale(1.05)'
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = '#FF7E00'
-                  e.target.style.transform = 'scale(1)'
-                }}
               >
                 Remove
               </button>
@@ -667,115 +341,52 @@ useEffect(() => {
 
       {/* Payment Status Modal */}
       {showStatusModal && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'rgba(0,0,0,0.7)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 2000
-        }}>
-          <div style={{
-            background: 'white',
-            borderRadius: '20px',
-            width: '90%',
-            maxWidth: '400px',
-            padding: '30px',
-            textAlign: 'center',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
-          }}>
+        <div className="payment-status-modal">
+          <div className="status-modal-content">
             {paymentStatus === 'success' ? (
               <>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  background: '#4CAF50',
-                  borderRadius: '50%',
-                  margin: '0 auto 20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '40px',
-                  color: 'white'
-                }}>
+                <div className="status-icon success">
                   ✓
                 </div>
-                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Successful!</h3>
-                <p style={{ color: '#666', marginBottom: '10px' }}>
+                <h3>Payment Successful!</h3>
+                <p>
                   Your order for <strong>{cartItems.length} items</strong> has been placed successfully.
                 </p>
-                <p style={{ color: '#666', marginBottom: '25px', fontSize: '14px' }}>
-                  Order ID: ORD{Date.now().toString().slice(-6)}<br/>
+                <p className="order-details">
+                  Order ID: ORD{Date.now().toString().slice(-6)}<br />
                   Total: ₹{total.toFixed(2)}
                 </p>
               </>
             ) : paymentStatus === 'failed' ? (
               <>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  background: '#f44336',
-                  borderRadius: '50%',
-                  margin: '0 auto 20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '40px',
-                  color: 'white'
-                }}>
+                <div className="status-icon failed">
                   ✗
                 </div>
-                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Failed</h3>
-                <p style={{ color: '#666', marginBottom: '25px' }}>
+                <h3>Payment Failed</h3>
+                <p>
                   The payment could not be processed. Please try again.
                 </p>
               </>
             ) : (
               <>
-                <div style={{
-                  width: '80px',
-                  height: '80px',
-                  background: '#FF7E00',
-                  borderRadius: '50%',
-                  margin: '0 auto 20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: '40px',
-                  color: 'white'
-                }}>
+                <div className="status-icon cancelled">
                   !
                 </div>
-                <h3 style={{ color: '#2D2D2D', marginBottom: '10px' }}>Payment Cancelled</h3>
-                <p style={{ color: '#666', marginBottom: '25px' }}>
+                <h3>Payment Cancelled</h3>
+                <p>
                   Payment was cancelled. You can try again.
                 </p>
               </>
             )}
 
-            <div style={{ display: 'flex', gap: '15px', marginTop: '25px' }}>
+            <div className="status-modal-buttons">
               {paymentStatus === 'success' ? (
                 <button
                   onClick={() => {
                     setShowStatusModal(false)
                     setPaymentStatus(null)
                   }}
-                  style={{
-                    padding: '12px 30px',
-                    background: '#FF7E00',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '25px',
-                    fontWeight: '600',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s',
-                    width: '100%'
-                  }}
+                  className="status-btn continue"
                 >
                   Continue Shopping
                 </button>
@@ -786,18 +397,7 @@ useEffect(() => {
                     setPaymentStatus(null)
                     setTimeout(() => handleCheckout(), 300)
                   }}
-                  style={{
-                    padding: '12px 30px',
-                    background: '#f44336',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '25px',
-                    fontWeight: '600',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s',
-                    width: '100%'
-                  }}
+                  className="status-btn try-again"
                 >
                   Try Again
                 </button>
@@ -807,18 +407,7 @@ useEffect(() => {
                     setShowStatusModal(false)
                     setPaymentStatus(null)
                   }}
-                  style={{
-                    padding: '12px 30px',
-                    background: '#FF7E00',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '25px',
-                    fontWeight: '600',
-                    fontSize: '16px',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s',
-                    width: '100%'
-                  }}
+                  className="status-btn ok"
                 >
                   OK
                 </button>

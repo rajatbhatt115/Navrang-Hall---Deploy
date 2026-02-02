@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { lazy, Suspense } from 'react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import './App.css'
 
 // Lazy load all page components
@@ -37,6 +38,7 @@ const PageLoading = () => (
 function App() {
   return (
     <Router>
+      <ScrollToTop>
       <div className="app-container">
         <Navbar />
         <main>
@@ -58,6 +60,7 @@ function App() {
         </main>
         <Footer />
       </div>
+      </ScrollToTop>
     </Router>
   )
 }
