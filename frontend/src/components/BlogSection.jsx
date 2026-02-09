@@ -39,7 +39,7 @@ const BlogSection = () => {
         
         <Row style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '25px' }}>
           {/* Left Column - Main Blog Post */}
-          <Col lg={6} className="mb-4">
+          <Col lg={6}>
             <Link to={`/blog/${mainBlog.id}`} className="blog-post-link">
               <div className="blog-post-card">
                 <div 

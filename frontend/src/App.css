@@ -2404,7 +2404,7 @@ textarea.form-control {
 
 @media (max-width: 992px) {
     .product-info-container {
-        padding-left: 0;
+        padding-left: 0px !important;
         margin-top: 40px;
     }
 }
@@ -3067,7 +3067,7 @@ textarea.form-control {
 /* Responsive Design for Form */
 @media (max-width: 768px) {
     .add-review-form {
-        padding: 20px;
+        padding: 30px;
     }
 
     .rating-stars-input {
@@ -3105,7 +3105,7 @@ textarea.form-control {
 @media (max-width: 576px) {
     .add-review-form {
         margin-top: 40px;
-        padding: 15px;
+        padding: 30px;
     }
 
     .form-title {
@@ -3505,7 +3505,7 @@ textarea.form-control {
 
     .price-tag {
         order: 3;
-        margin-top: -30px;
+        margin-top: 0px;
     }
 }
 
@@ -3522,7 +3522,7 @@ textarea.form-control {
 
     .price-tag {
         font-size: 15px;
-        margin-top: -28px;
+        margin-top: 0px;
     }
 }
 
@@ -4262,4 +4262,49 @@ textarea.form-control {
     }
 }
 
+@media (max-width: 768px) {
+  .exploring-section .row {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .exploring-section .col-md-4 {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+}
 
+/* ONLY for mobile - desktop won't be touched */
+@media screen and (max-width: 767px) {
+  .reviews-container {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .review-card {
+    padding: 20px !important;
+  }
+  
+  .stars-input {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .star-icon svg {
+    width: 24px !important;
+    height: 24px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+
+.form-cl
+{
+    padding: 60px 20px !important;
+}
+
+.img-review
+{
+    margin-top: 25px !important;
+}
+}

@@ -926,7 +926,7 @@ const InnerProduct = () => {
                   padding: '60px',
                   borderRadius: '20px',
                   boxShadow: '0 5px 20px rgba(0,0,0,0.05)', marginTop: '60px'
-                }}>
+                }} className='form-cl'>
                   <Row className="d-flex justify-content-center align-items-center" id="reviewForm">
                     <Col lg={6} md={6} xs={12}>
                       <div className="add-review-form" style={{ marginTop: '0px' }}>
@@ -1138,7 +1138,7 @@ const InnerProduct = () => {
                           maxWidth: '500px',
                           height: 'auto',
                           margin: '0 auto'
-                        }}
+                        }} className='img-review'
                       />
                     </Col>
                   </Row>
