@@ -140,7 +140,7 @@ const Wishlist = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading wishlist...</div>
+    return null
   }
 
   return (

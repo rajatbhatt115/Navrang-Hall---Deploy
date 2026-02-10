@@ -23,7 +23,7 @@ const BlogSection = () => {
 }, []);
 
   if (loading) {
-    return <div>Loading blogs...</div>
+    return null
   }
 
   if (!blogData) {

@@ -188,7 +188,7 @@ const Cart = () => {
   const { subtotal, shipping, tax, total } = calculateTotals()
 
   if (loading) {
-    return <div className="cart-loading">Loading cart...</div>
+    return null
   }
 
   return (

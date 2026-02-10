@@ -66,7 +66,7 @@ const HeroSection = ({ pageName, isShopPage }) => {
   }, [pageName])
 
   if (loading) {
-    return <div>Loading...</div>
+    return null
   }
 
   if (!bannerData) {

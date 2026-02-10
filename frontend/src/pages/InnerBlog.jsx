@@ -57,71 +57,55 @@ const InnerBlog = () => {
 
   // InnerBlog.js में handleCommentSubmit फंक्शन को अपडेट करें:
 
-const handleCommentSubmit = async (e) => {
-  e.preventDefault()
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault()
 
-  try {
-    console.log('Submitting comment for blog ID:', id);
-    console.log('Comment form data:', commentForm);
+    try {
+      console.log('Submitting comment for blog ID:', id);
+      console.log('Comment form data:', commentForm);
 
-    const newCommentData = {
-      name: `${commentForm.firstName} ${commentForm.lastName}`,
-      text: commentForm.message,
-      // केवल name और text भेज रहे हैं
-      avatar: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`
-    }
+      const newCommentData = {
+        name: `${commentForm.firstName} ${commentForm.lastName}`,
+        text: commentForm.message,
+        // केवल name और text भेज रहे हैं
+        avatar: `https://i.pravatar.cc/150?img=${Math.floor(Math.random() * 70) + 1}`
+      }
 
-    console.log('Data being sent to API:', newCommentData);
+      console.log('Data being sent to API:', newCommentData);
 
-    // API call to save comment
-    const response = await api.addBlogComment(id, newCommentData);
-    
-    console.log('API response:', response);
-    console.log('Response data:', response.data);
+      // API call to save comment
+      const response = await api.addBlogComment(id, newCommentData);
 
-    if (response.data) {
-      // Update comments state with new comment
-      setComments([response.data, ...comments]);
-      
-      alert('Your comment has been posted successfully!');
+      console.log('API response:', response);
+      console.log('Response data:', response.data);
 
-      // Reset form
-      setCommentForm({
-        firstName: '',
-        lastName: '',
-        contact: '',
-        email: '',
-        message: ''
-      });
-    } else {
-      console.error('No data in response');
+      if (response.data) {
+        // Update comments state with new comment
+        setComments([response.data, ...comments]);
+
+        alert('Your comment has been posted successfully!');
+
+        // Reset form
+        setCommentForm({
+          firstName: '',
+          lastName: '',
+          contact: '',
+          email: '',
+          message: ''
+        });
+      } else {
+        console.error('No data in response');
+        alert('Failed to post comment. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error posting comment:', error);
+      console.error('Error details:', error.response?.data || error.message);
       alert('Failed to post comment. Please try again.');
     }
-  } catch (error) {
-    console.error('Error posting comment:', error);
-    console.error('Error details:', error.response?.data || error.message);
-    alert('Failed to post comment. Please try again.');
-  }
-};
+  };
 
   if (loading) {
-    return (
-      <div style={{
-        textAlign: 'center',
-        padding: '50px',
-        color: '#FF7E00',
-        minHeight: '50vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <div className="spinner-border text-warning" role="status" style={{ width: '3rem', height: '3rem' }}>
-          <span className="visually-hidden">Loading...</span>
-        </div>
-        <p style={{ marginTop: '20px' }}>Loading blog post...</p>
-      </div>
-    )
+    return null
   }
 
   if (!blogData) {

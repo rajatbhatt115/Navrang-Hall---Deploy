@@ -22,7 +22,7 @@ const ExploringSection = () => {
   }, [])
 
   if (loading) {
-    return <div>Loading categories...</div>
+    return null
   }
 
   return (

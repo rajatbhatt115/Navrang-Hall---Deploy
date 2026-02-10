@@ -41,7 +41,7 @@ const TestimonialsSection = () => {
   }
 
   if (loading) {
-    return <div>Loading testimonials...</div>
+    return null
   }
 
   if (testimonials.length === 0) {

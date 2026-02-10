@@ -313,7 +313,7 @@ const Shop = () => {
   const currentProducts = filteredProducts.slice(startIndex, endIndex)
 
   if (loading) {
-    return <div>Loading products...</div>;
+    return null;
   }
 
   return (

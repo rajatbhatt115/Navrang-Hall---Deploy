@@ -23,7 +23,7 @@ const AboutSection = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   if (!aboutContent) {

@@ -43,7 +43,7 @@ const About = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   if (!aboutData) {

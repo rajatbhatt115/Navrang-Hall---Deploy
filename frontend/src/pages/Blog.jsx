@@ -27,7 +27,7 @@ const Blog = () => {
   const currentBlogData = blogPages.find(page => page.page === currentPage)
 
   if (loading) {
-    return <div>Loading blog content...</div>
+    return null
   }
 
   if (!currentBlogData) {
