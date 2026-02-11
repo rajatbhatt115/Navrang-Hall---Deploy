@@ -52,6 +52,7 @@ const Blog = () => {
                       <div 
                         className="blog-post-image" 
                         style={{ backgroundImage: `url(${blog.image})` }}
+                        loading="lazy"
                       ></div>
                       <div className="blog-post-content">
                         <h3>{blog.title}</h3>
@@ -59,6 +60,7 @@ const Blog = () => {
                           <div 
                             className="author-avatar" 
                             style={{ backgroundImage: `url(${blog.authorImage})` }}
+                            loading="lazy"
                           ></div>
                           <div className="author-info">
                             <span className="author-name">{blog.author}</span>
@@ -79,6 +81,7 @@ const Blog = () => {
                       <div 
                         className="small-blog-image" 
                         style={{ backgroundImage: `url(${blog.image})` }}
+                        loading="lazy"
                       ></div>
                       <div className="small-blog-content">
                         <h4>{blog.title}</h4>
@@ -87,6 +90,7 @@ const Blog = () => {
                           <div 
                             className="author-avatar" 
                             style={{ backgroundImage: `url(${blog.authorImage})` }}
+                            loading="lazy"
                           ></div>
                           <div className="author-info">
                             <span className="author-name">{blog.author}</span>

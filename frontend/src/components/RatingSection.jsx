@@ -54,7 +54,7 @@ const RatingSection = () => {
       key: "rzp_test_1DP5mmOlF5G5ag", // Replace with your Razorpay key
       amount: totalPrice * 100, // Amount in paise
       currency: "INR",
-      name: "Shree Laxmi Mall",
+      name: "Navrang Hall",
       description: `Product: ${product.title}`,
       image: "/img/logo.png",
       handler: function (response) {

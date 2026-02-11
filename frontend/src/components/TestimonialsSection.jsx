@@ -72,6 +72,7 @@ const TestimonialsSection = () => {
                   <div
                     className="testimonial-avatar1"
                     style={{ backgroundImage: `url(${testimonial.image})` }}
+                    loading="lazy"
                   ></div>
                   <p className="fst-italic">{testimonial.text}</p>
                   <h5>{testimonial.name}</h5>

@@ -7,7 +7,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/img_banner_home.png"
+      "imageUrl": "img/img_banner_home.webp"
     },
     {
       "id": 2,
@@ -15,13 +15,13 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/img_about_banner.png"
+      "imageUrl": "img/img_about_banner.webp"
     },
     {
       "id": 3,
       "title": "Shop",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "imageUrl": "img/img_banner_shop.png"
+      "imageUrl": "img/img_banner_shop.webp"
     },
     {
       "id": 4,
@@ -29,7 +29,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/img_blog_banner.png"
+      "imageUrl": "img/img_blog_banner.webp"
     },
     {
       "id": 5,
@@ -37,7 +37,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/img_contact_banner.png"
+      "imageUrl": "img/img_contact_banner.webp"
     },
     {
       "id": 6,
@@ -45,7 +45,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/img_about_banner.png"
+      "imageUrl": "img/img_about_banner.webp"
     },
     {
       "id": 7,
@@ -53,7 +53,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/Rectangle_img_edit.png"
+      "imageUrl": "img/Rectangle_img_edit.webp"
     },
     {
       "id": 8,
@@ -61,13 +61,13 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "buttonText": "Shop Now",
       "buttonLink": "/shop",
-      "imageUrl": "img/ic_wishlist_banner.png"
+      "imageUrl": "img/ic_wishlist_banner.webp"
     },
     {
       "id": 9,
       "title": "Product Details",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      "imageUrl": "img/img_banner_shop.png"
+      "imageUrl": "img/img_banner_shop.webp"
     }
   ],
   "discoverProducts": [
@@ -76,28 +76,28 @@
       "title": "Shop The Latest Items From Top Brands",
       "badge": "New Arrival",
       "bgColor": "#F9EC82",
-      "image": "img/disc1.jpg"
+      "image": "img/disc1.webp"
     },
     {
       "id": 2,
       "title": "Exclusive Winter Collection Latest Trends",
       "badge": "Trending",
       "bgColor": "#FFE8CC",
-      "image": "img/disc2.jpg"
+      "image": "img/disc2.webp"
     },
     {
       "id": 3,
       "title": "Premium Ethnic Wear Collection",
       "badge": "Limited",
       "bgColor": "#F9EC82",
-      "image": "img/disc3.jpg"
+      "image": "img/disc3.webp"
     },
     {
       "id": 4,
       "title": "Summer Fashion Essentials Latest Arrivals",
       "badge": "Hot",
       "bgColor": "#FFE8CC",
-      "image": "img/disc4.jpg"
+      "image": "img/disc4.webp"
     }
   ],
   "aboutContent": [
@@ -112,7 +112,7 @@
       "founder": {
         "name": "Aaksh Shah",
         "role": "Founder, CEO",
-        "image": "img/img_akash_shah.png"
+        "image": "img/img_akash_shah.webp"
       },
       "mission": {
         "title": "Our Mission.",
@@ -178,19 +178,19 @@
       "id": 1,
       "title": "Western Wear",
       "description": "Stylish everyday outfits for a chic modern look.",
-      "image": "img/img_western.png"
+      "image": "img/img_western.webp"
     },
     {
       "id": 2,
       "title": "Dress",
       "description": "Elegant designer gowns crafted for special celebrations.",
-      "image": "img/img_dress.png"
+      "image": "img/img_dress.webp"
     },
     {
       "id": 3,
       "title": "Navratri",
       "description": "Vibrant ethnic styles perfect for festive occasions.",
-      "image": "img/navratri.png"
+      "image": "img/navratri.webp"
     }
   ],
   "topRatingProducts": {
@@ -200,21 +200,21 @@
         "title": "Kids T-Shirt",
         "price": "₹1,200",
         "rating": 4,
-        "image": "img/kid5.jpg"
+        "image": "img/kid5.webp"
       },
       {
         "id": 2,
         "title": "Kids Dress",
         "price": "₹2,500",
         "rating": 5,
-        "image": "img/kids_dress.jpg"
+        "image": "img/kids_dress.webp"
       },
       {
         "id": 3,
         "title": "Kids Jeans",
         "price": "₹1,800",
         "rating": 4,
-        "image": "img/kids_jeans.jpg"
+        "image": "img/kids_jeans.webp"
       }
     ],
     "women": [
@@ -223,21 +223,21 @@
         "title": "Western",
         "price": "₹7,500",
         "rating": 4,
-        "image": "img/western.png"
+        "image": "img/western.webp"
       },
       {
         "id": 5,
         "title": "Gown",
         "price": "₹7,500",
         "rating": 5,
-        "image": "img/gown.png"
+        "image": "img/gown.webp"
       },
       {
         "id": 6,
         "title": "Sarees",
         "price": "₹7,500",
         "rating": 4,
-        "image": "img/saree.png"
+        "image": "img/saree.webp"
       }
     ],
     "jewellery": [
@@ -246,21 +246,21 @@
         "title": "Gold Necklace",
         "price": "₹15,000",
         "rating": 4,
-        "image": "img/jewellery1.jpg"
+        "image": "img/jewellery1.webp"
       },
       {
         "id": 8,
         "title": "Silver Earrings",
         "price": "₹3,500",
         "rating": 5,
-        "image": "img/jewellery2.jpg"
+        "image": "img/jewellery2.webp"
       },
       {
         "id": 9,
         "title": "Diamond Ring",
         "price": "₹25,000",
         "rating": 4,
-        "image": "img/jewellery3.jpg"
+        "image": "img/jewellery3.webp"
       }
     ]
   },
@@ -269,19 +269,19 @@
       "id": 1,
       "name": "Harold Patel",
       "text": "\"There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.\"",
-      "image": "img/per1.png"
+      "image": "img/per1.webp"
     },
     {
       "id": 2,
       "name": "Priya Sharma",
       "text": "\"I absolutely love the quality of clothes from Shree Laxmi Mall. The fabrics are premium and the designs are trendy. My friends always ask me where I shop!\"",
-      "image": "img/per2.png"
+      "image": "img/per2.webp"
     },
     {
       "id": 3,
       "name": "Rahul Verma",
       "text": "\"The customer service is exceptional. They helped me find the perfect outfit for my sister's wedding. The delivery was prompt and the packaging was beautiful.\"",
-      "image": "img/per3.png"
+      "image": "img/per3.webp"
     }
   ],
   "blogs": {
@@ -291,8 +291,8 @@
         "title": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         "author": "Kiran Patel",
         "date": "20 May 2023",
-        "image": "img/blog1.png",
-        "authorImage": "img/ic_kiran.png"
+        "image": "img/blog1.webp",
+        "authorImage": "img/ic_kiran.webp"
       },
       "smallBlogs": [
         {
@@ -301,8 +301,8 @@
           "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
           "author": "Neha Bhatt",
           "date": "20 May 2023",
-          "image": "img/ic_blog3.png",
-          "authorImage": "img/ic_neha.png"
+          "image": "img/ic_blog3.webp",
+          "authorImage": "img/ic_neha.webp"
         },
         {
           "id": 4,
@@ -310,8 +310,8 @@
           "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
           "author": "Ankit Patil",
           "date": "14 April 2023",
-          "image": "img/ic_blog4.png",
-          "authorImage": "img/ic_ankit.png"
+          "image": "img/ic_blog4.webp",
+          "authorImage": "img/ic_ankit.webp"
         }
       ]
     },
@@ -323,16 +323,16 @@
             "title": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "author": "Kiran Patel",
             "date": "20 May 2023",
-            "image": "img/blog1.png",
-            "authorImage": "img/ic_kiran.png"
+            "image": "img/blog1.webp",
+            "authorImage": "img/ic_kiran.webp"
           },
           {
             "id": 2,
             "title": "The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
             "author": "Kishan Patel",
             "date": "30 May 2023",
-            "image": "img/blog2.png",
-            "authorImage": "img/ic_kishan.png"
+            "image": "img/blog2.webp",
+            "authorImage": "img/ic_kishan.webp"
           }
         ],
         "smallBlogs": [
@@ -342,8 +342,8 @@
             "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "author": "Neha Bhatt",
             "date": "20 May 2023",
-            "image": "img/ic_blog3.png",
-            "authorImage": "img/ic_neha.png"
+            "image": "img/ic_blog3.webp",
+            "authorImage": "img/ic_neha.webp"
           },
           {
             "id": 4,
@@ -351,8 +351,8 @@
             "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "author": "Ankit Patil",
             "date": "14 April 2023",
-            "image": "img/ic_blog4.png",
-            "authorImage": "img/ic_ankit.png"
+            "image": "img/ic_blog4.webp",
+            "authorImage": "img/ic_ankit.webp"
           },
           {
             "id": 5,
@@ -360,8 +360,8 @@
             "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "author": "Parth Patel",
             "date": "10 March 2023",
-            "image": "img/ic_blog5.png",
-            "authorImage": "img/ic_parth.png"
+            "image": "img/ic_blog5.webp",
+            "authorImage": "img/ic_parth.webp"
           },
           {
             "id": 6,
@@ -369,8 +369,8 @@
             "excerpt": "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
             "author": "Nupur Shah",
             "date": "10 March 2023",
-            "image": "img/ic_blog6.png",
-            "authorImage": "img/ic_nupur.jpg"
+            "image": "img/ic_blog6.webp",
+            "authorImage": "img/ic_nupur.webp"
           }
         ]
       },
@@ -439,15 +439,15 @@
             "title": "Winter Collection 2023: Stay Warm in Style",
             "author": "Kiran Patel",
             "date": "5 September 2023",
-            "image": "img/blog2.png",
-            "authorImage": "img/ic_kiran.png"
+            "image": "img/blog2.webp",
+            "authorImage": "img/ic_kiran.webp"
           },
           {
             "id": 14,
             "title": "Festive Season Shopping Guide: Diwali Special Collection",
             "author": "Kiran Patel",
             "date": "12 October 2023",
-            "image": "img/blog1.png",
+            "image": "img/blog1.webp",
             "authorImage": "https://i.pravatar.cc/150?img=1"
           }
         ],
@@ -458,8 +458,8 @@
             "excerpt": "Graceful Anarkali suits that make you feel like royalty at every event.",
             "author": "Neha Bhatt",
             "date": "8 September 2023",
-            "image": "img/ic_blog3.png",
-            "authorImage": "img/ic_neha.png"
+            "image": "img/ic_blog3.webp",
+            "authorImage": "img/ic_neha.webp"
           },
           {
             "id": 16,
@@ -476,8 +476,8 @@
             "excerpt": "Combine traditional elegance with contemporary style in these fusion outfits.",
             "author": "Parth Patel",
             "date": "15 October 2023",
-            "image": "img/ic_blog5.png",
-            "authorImage": "img/ic_parth.png"
+            "image": "img/ic_blog5.webp",
+            "authorImage": "img/ic_parth.webp"
           },
           {
             "id": 18,
@@ -504,7 +504,7 @@
         "L"
       ],
       "rating": 4.9,
-      "image": "img/western.png",
+      "image": "img/western.webp",
       "isNew": true
     },
     {
@@ -518,7 +518,7 @@
         "XL"
       ],
       "rating": 4.8,
-      "image": "img/img_dress.png",
+      "image": "img/img_dress.webp",
       "isNew": false
     },
     {
@@ -531,7 +531,7 @@
         "M"
       ],
       "rating": 4.9,
-      "image": "img/img_western.png",
+      "image": "img/img_western.webp",
       "isNew": true
     },
     {
@@ -545,7 +545,7 @@
         "XL"
       ],
       "rating": 4.9,
-      "image": "img/saree.png",
+      "image": "img/saree.webp",
       "isNew": false
     },
     {
@@ -559,7 +559,7 @@
         "L"
       ],
       "rating": 4.8,
-      "image": "img/navratri.png",
+      "image": "img/navratri.webp",
       "isNew": true
     },
     {
@@ -573,7 +573,7 @@
         "XL"
       ],
       "rating": 4.9,
-      "image": "img/gown.png",
+      "image": "img/gown.webp",
       "isNew": false
     },
     {
@@ -586,7 +586,7 @@
         "M"
       ],
       "rating": 5,
-      "image": "img/fe1.png",
+      "image": "img/fe1.webp",
       "isNew": true
     },
     {
@@ -600,7 +600,7 @@
         "XL"
       ],
       "rating": 4.7,
-      "image": "img/img_ankit.png",
+      "image": "img/img_ankit.webp",
       "isNew": false
     },
     {
@@ -614,7 +614,7 @@
         "L"
       ],
       "rating": 4.9,
-      "image": "img/fe6.png",
+      "image": "img/fe6.webp",
       "isNew": true
     },
     {
@@ -627,7 +627,7 @@
         "M"
       ],
       "rating": 4.5,
-      "image": "img/kids_dress.jpg",
+      "image": "img/kids_dress.webp",
       "isNew": true
     },
     {
@@ -639,7 +639,7 @@
         "One Size"
       ],
       "rating": 4.9,
-      "image": "img/jewellery1.jpg",
+      "image": "img/jewellery1.webp",
       "isNew": false
     },
     {
@@ -653,7 +653,7 @@
         "XL"
       ],
       "rating": 4.6,
-      "image": "img/me2.png",
+      "image": "img/me2.webp",
       "isNew": true
     }
   ],
@@ -662,19 +662,19 @@
       "id": 1,
       "name": "Aaksh Shah",
       "role": "Founder, CEO",
-      "image": "img/img_aaksh.png"
+      "image": "img/img_aaksh.webp"
     },
     {
       "id": 2,
       "name": "Neha Patel",
       "role": "President",
-      "image": "img/img_naha.png"
+      "image": "img/img_naha.webp"
     },
     {
       "id": 3,
       "name": "Ankit Patel",
       "role": "Co-Founder",
-      "image": "img/img_ankit.png"
+      "image": "img/img_ankit.webp"
     }
   ],
   "cartItems": [
@@ -710,7 +710,7 @@
     },
     {
       "name": "Bridal Lehenga",
-      "image": "img/fe1.png",
+      "image": "img/fe1.webp",
       "color": "Green",
       "size": "S",
       "price": 5500,
@@ -759,16 +759,16 @@
       "rating": 4.8,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
         },
         {
-          "thumb": "/img/img_sm3.png",
-          "large": "/img/img_lg3.png"
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -832,16 +832,16 @@
       "rating": 4.8,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
         },
         {
-          "thumb": "/img/img_sm3.png",
-          "large": "/img/img_lg3.png"
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -896,12 +896,16 @@
       "rating": 4.9,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -955,12 +959,16 @@
       "rating": 4.9,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1012,12 +1020,16 @@
       "rating": 4.8,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1066,18 +1078,18 @@
       ]
     },
     {
-      "id": 6,
-      "name": "Modern Ethnic Wear",
-      "price": 2800,
-      "rating": 4.8,
-      "images": [
+     "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1138,16 +1150,16 @@
       "rating": 5,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
         },
         {
-          "thumb": "/img/img_sm2.png",
-          "large": "/img/img_lg2.png"
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
         },
         {
-          "thumb": "/img/img_sm3.png",
-          "large": "/img/img_lg3.png"
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1204,8 +1216,16 @@
       "rating": 4.7,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
+        },
+        {
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1259,8 +1279,16 @@
       "rating": 4.8,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
+        },
+        {
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1319,8 +1347,16 @@
       "rating": 4.5,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
+        },
+        {
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1373,8 +1409,16 @@
       "rating": 4.9,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
+        },
+        {
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1426,8 +1470,16 @@
       "rating": 4.6,
       "images": [
         {
-          "thumb": "/img/img_sm1.png",
-          "large": "/img/img_lg1.png"
+          "thumb": "/img/img_sm1.webp",
+          "large": "/img/img_lg1.webp"
+        },
+        {
+          "thumb": "/img/img_sm2.webp",
+          "large": "/img/img_lg2.webp"
+        },
+        {
+          "thumb": "/img/img_sm3.webp",
+          "large": "/img/img_lg3.webp"
         }
       ],
       "sizes": [
@@ -1482,8 +1534,8 @@
       "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
       "author": "Kiran Patel",
       "date": "20 May 2023",
-      "authorImage": "/img/ic_kiran.png",
-      "image": "/img/blog1.png",
+      "authorImage": "/img/ic_kiran.webp",
+      "image": "/img/blog1.webp",
       "comments": [
         {
           "id": 1,
@@ -1521,8 +1573,8 @@
       "content": "The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
       "author": "Kishan Patel",
       "date": "30 May 2023",
-      "authorImage": "/img/ic_kishan.png",
-      "image": "/img/blog2.png",
+      "authorImage": "/img/ic_kishan.webp",
+      "image": "/img/blog2.webp",
       "comments": [
         {
           "id": 1,
@@ -1553,8 +1605,8 @@
       "content": "Berbeza dari pendapat umum yang popular, Lorem Ipsum bukan karya text secara rambang. Ia mempunyai akar dari sebahagian sastera Latin klasik dari 45 SM, menjadikannya berusia 2000 tahun. Richard McClintock, seorang profesor Latin di Hampden-Sydney College di Virginia, telah mencari satu dari perkataan Latin yang kurang difahami, consectetur, dari Lorem Ipsum, dan melalui petikan dari perkataan tersebut di dalam sastera klasik, telah menemui sumber yang tidak dapat diragukan.",
       "author": "Neha Bhatt",
       "date": "20 May 2023",
-      "authorImage": "/img/ic_neha.png",
-      "image": "/img/ic_blog3.png",
+      "authorImage": "/img/ic_neha.webp",
+      "image": "/img/ic_blog3.webp",
       "comments": [
         {
           "id": 1,
@@ -1585,8 +1637,8 @@
       "content": "Sejumlah text seragam Lorem Ipsum yang digunakan semenjak 1500an di terbitkan di bawah ini untuk mereka yang berminat. Sections 1.10.32 and 1.10.33 from 'de Finibus Bonorum et Malorum' by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       "author": "Ankit Patil",
       "date": "14 April 2023",
-      "authorImage": "/img/ic_ankit.png",
-      "image": "/img/ic_blog4.png",
+      "authorImage": "/img/ic_ankit.webp",
+      "image": "/img/ic_blog4.webp",
       "comments": [
         {
           "id": 1,
@@ -1617,8 +1669,8 @@
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "author": "Parth Patel",
       "date": "10 March 2023",
-      "authorImage": "/img/ic_parth.png",
-      "image": "/img/ic_blog5.png",
+      "authorImage": "/img/ic_parth.webp",
+      "image": "/img/ic_blog5.webp",
       "comments": [
         {
           "id": 1,
@@ -1656,8 +1708,8 @@
       "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.",
       "author": "Nupur Shah",
       "date": "10 March 2023",
-      "authorImage": "/img/ic_nupur.jpg",
-      "image": "/img/ic_blog6.png",
+      "authorImage": "/img/ic_nupur.webp",
+      "image": "/img/ic_blog6.webp",
       "comments": [
         {
           "id": 1,
@@ -1887,8 +1939,8 @@
       "content": "Winter fashion for 2023 combines warmth with style through luxurious fabrics and innovative designs. Cashmere sweaters, wool coats, and velvet dresses dominate the season. Earth tones and jewel colors are trending, along with layering techniques that allow for both indoor comfort and outdoor warmth. Sustainable wool and recycled materials are gaining popularity among eco-conscious consumers.",
       "author": "Kiran Patel",
       "date": "5 September 2023",
-      "authorImage": "img/ic_kiran.png",
-      "image": "img/blog2.png",
+      "authorImage": "img/ic_kiran.webp",
+      "image": "img/blog2.webp",
       "comments": [
         {
           "id": 1,
@@ -1920,7 +1972,7 @@
       "author": "Kiran Patel",
       "date": "12 October 2023",
       "authorImage": "https://i.pravatar.cc/150?img=1",
-      "image": "img/blog1.png",
+      "image": "img/blog1.webp",
       "comments": [
         {
           "id": 1,
@@ -1951,8 +2003,8 @@
       "content": "Anarkali suits continue to reign supreme for special occasions, offering a regal look that combines Mughal-era elegance with contemporary style. These floor-length frock-style suits feature intricate embroidery, rich fabrics, and flowing silhouettes that create a dramatic effect. Modern variations include shorter lengths for casual wear, jacket-style Anarkalis, and fusion designs that blend Indian and Western elements.",
       "author": "Neha Bhatt",
       "date": "8 September 2023",
-      "authorImage": "img/ic_neha.png",
-      "image": "img/ic_blog3.png",
+      "authorImage": "img/ic_neha.webp",
+      "image": "img/ic_blog3.webp",
       "comments": [
         {
           "id": 1,
@@ -2015,8 +2067,8 @@
       "content": "Indo-Western fusion fashion blends the best of Indian craftsmanship with Western silhouettes, creating unique outfits that appeal to global sensibilities. Think saree gowns, dhoti pants with crop tops, lehenga skirts with shirts, and kurta dresses. This trend allows for creative expression while maintaining cultural roots, making it popular among the younger generation and NRIs looking for versatile ethnic wear.",
       "author": "Parth Patel",
       "date": "15 October 2023",
-      "authorImage": "img/ic_parth.png",
-      "image": "img/ic_blog5.png",
+      "authorImage": "img/ic_parth.webp",
+      "image": "img/ic_blog5.webp",
       "comments": [
         {
           "id": 1,

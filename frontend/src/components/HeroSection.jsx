@@ -1,3 +1,4 @@
+// HeroSection.js - Updated with skeleton/placeholder
 import { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -13,23 +14,16 @@ const HeroSection = ({ pageName, isShopPage }) => {
         const response = await api.getHomeBanner(pageName)
         const banner = response.data
         
-        // Debugging ke liye
-        console.log('Banner data received:', banner)
-        
         // Image URL fix karein
         if (banner.imageUrl) {
-          // Agar backend se 'img/' se start ho raha hai
           if (banner.imageUrl.startsWith('img/')) {
-            // Frontend ke liye '/img/' bana dein
             banner.imageUrl = '/' + banner.imageUrl
           }
-          // Agar '/img/' nahi hai to add karein
           else if (!banner.imageUrl.startsWith('/') && !banner.imageUrl.startsWith('http')) {
             banner.imageUrl = '/img/' + banner.imageUrl
           }
         }
         
-        console.log('Fixed image URL:', banner.imageUrl)
         setBannerData(banner)
       } catch (error) {
         console.error('Error fetching banner data:', error)
@@ -52,7 +46,7 @@ const HeroSection = ({ pageName, isShopPage }) => {
           buttonText: pageName !== 'shop' ? 'Shop Now' : '',
           buttonLink: pageName !== 'shop' ? '/shop' : '',
           
-          imageUrl: '/img/img_banner_shop.png' // Direct public folder path
+          imageUrl: '/img/img_banner_shop.webp'
         }
         setBannerData(fallbackData)
       } finally {
@@ -65,8 +59,30 @@ const HeroSection = ({ pageName, isShopPage }) => {
     }
   }, [pageName])
 
+  // Loading state - SHOW SKELETON (same height as actual content)
   if (loading) {
-    return null
+    return (
+      <section className="hero-section hero-section-skeleton">
+        <Container>
+          <Row className="align-items-center">
+            <Col lg={6} className="hero-content-col">
+              <div className="hero-content">
+                <div className="skeleton skeleton-text-small"></div>
+                <div className="skeleton skeleton-title"></div>
+                <div className="skeleton skeleton-text"></div>
+                <div className="skeleton skeleton-text"></div>
+                <div className="skeleton skeleton-button"></div>
+              </div>
+            </Col>
+            <Col lg={6} className="text-lg-end">
+              <div className="hero-image float-lg-end">
+                <div className="skeleton skeleton-image"></div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
+      </section>
+    )
   }
 
   if (!bannerData) {
@@ -100,7 +116,7 @@ const HeroSection = ({ pageName, isShopPage }) => {
                 alt="Hero Banner" 
                 onError={(e) => {
                   console.error('Image failed to load:', bannerData.imageUrl)
-                  e.target.src = '/img/img_banner_shop.png' // Fallback image
+                  e.target.src = '/img/img_banner_shop.webp'
                 }}
               />
             </div>

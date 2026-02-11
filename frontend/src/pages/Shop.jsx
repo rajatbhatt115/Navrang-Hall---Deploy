@@ -489,6 +489,7 @@ const Shop = () => {
                           <div 
                             className="product-image" 
                             style={{ backgroundImage: `url(${product.image})` }}
+                            loading="lazy"
                           >
                             {product.isNew && (
                               <div className="badge-new">NEW</div>

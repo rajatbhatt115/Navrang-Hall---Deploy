@@ -241,19 +241,19 @@ footer a {
 }
 
 .product-image1 {
-    background-image: url("img/disc1.jpg");
+    background-image: url("img/disc1.webp");
 }
 
 .product-image2 {
-    background-image: url("img/disc2.jpg");
+    background-image: url("img/disc2.webp");
 }
 
 .product-image3 {
-    background-image: url("img/disc3.jpg");
+    background-image: url("img/disc3.webp");
 }
 
 .product-image4 {
-    background-image: url("img/disc4.jpg");
+    background-image: url("img/disc4.webp");
 }
 
 .badge-new {
@@ -339,43 +339,43 @@ footer a {
 }
 
 .rating-image-kids2 {
-    background-image: url("/frontend/public/img/kids_dress.jpg");
+    background-image: url("/frontend/public/img/kids_dress.webp");
     background-repeat: no-repeat;
     background-position: center !important;
 }
 
 .rating-image-kids3 {
-    background-image: url("/frontend/public/img/kids_jeans.jpg");
+    background-image: url("/frontend/public/img/kids_jeans.webp");
     background-repeat: no-repeat;
     background-position: center !important;
 }
 
 .rating-image-women1 {
-    background-image: url("/frontend/public/img/western.png");
+    background-image: url("/frontend/public/img/western.webp");
 }
 
 .rating-image-women2 {
-    background-image: url("/frontend/public/img/gown.png");
+    background-image: url("/frontend/public/img/gown.webp");
 }
 
 .rating-image-women3 {
-    background-image: url("/frontend/public/img/saree.png");
+    background-image: url("/frontend/public/img/saree.webp");
 }
 
 .rating-image-jewellery1 {
-    background-image: url("img/jewellery1.jpg");
+    background-image: url("img/jewellery1.webp");
     background-repeat: no-repeat;
     background-position: center !important;
 }
 
 .rating-image-jewellery2 {
-    background-image: url("img/jewellery2.jpg");
+    background-image: url("img/jewellery2.webp");
     background-repeat: no-repeat;
     background-position: center !important;
 }
 
 .rating-image-jewellery3 {
-    background-image: url("img/jewellery3.jpg");
+    background-image: url("img/jewellery3.webp");
     background-repeat: no-repeat;
     background-position: center !important;
 }
@@ -456,15 +456,15 @@ footer a {
 }
 
 .category1 {
-    background-image: url("img/img_western.png");
+    background-image: url("img/img_western.webp");
 }
 
 .category2 {
-    background-image: url("img/img_dress.png");
+    background-image: url("img/img_dress.webp");
 }
 
 .category3 {
-    background-image: url("img/navratri.png");
+    background-image: url("img/navratri.webp");
 }
 
 .category-overlay {
@@ -530,19 +530,19 @@ footer a {
 }
 
 .testimonial-avatar1 {
-    background-image: url("img/per1.png");
+    background-image: url("img/per1.webp");
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .testimonial-avatar2 {
-    background-image: url("img/per3.png");
+    background-image: url("img/per3.webp");
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .testimonial-avatar3 {
-    background-image: url("img/per2.png");
+    background-image: url("img/per2.webp");
     background-position: center;
     background-repeat: no-repeat;
 }
@@ -632,17 +632,17 @@ footer a {
 
 .blog-image1 {
     height: 250px;
-    background-image: url(img/img1.png);
+    background-image: url(img/img1.webp);
 }
 
 .blog-image2 {
     height: 150px;
-    background-image: url(img/img2.png);
+    background-image: url(img/img2.webp);
 }
 
 .blog-image3 {
     height: 150px;
-    background-image: url(img/img3.png);
+    background-image: url(img/img3.webp);
 }
 
 .blog-content {
@@ -4307,4 +4307,81 @@ textarea.form-control {
 {
     margin-top: 25px !important;
 }
+}
+
+
+/* =============== SKELETON LOADING STYLES =============== */
+.hero-section-skeleton {
+  background: linear-gradient(135deg, var(--light-orange) 0%, #FFE8CC 100%);
+  padding: 80px 0;
+  min-height: 500px; /* Fixed height to prevent layout shift */
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes loading {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text-small {
+  width: 200px;
+  height: 20px;
+  margin-bottom: 15px;
+}
+
+.skeleton-title {
+  width: 300px;
+  height: 48px;
+  margin-bottom: 20px;
+}
+
+.skeleton-text {
+  width: 100%;
+  max-width: 400px;
+  height: 16px;
+  margin-bottom: 12px;
+}
+
+.skeleton-button {
+  width: 150px;
+  height: 45px;
+  border-radius: 25px;
+  margin-top: 20px;
+}
+
+.skeleton-image {
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+}
+
+/* Responsive skeleton */
+@media (max-width: 992px) {
+  .skeleton-image {
+    width: 100%;
+    height: 350px;
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-section-skeleton {
+    padding: 50px 0;
+    min-height: 700px;
+  }
+  
+  .skeleton-title {
+    width: 250px;
+    height: 40px;
+  }
+  
+  .skeleton-image {
+    height: 300px;
+  }
 }

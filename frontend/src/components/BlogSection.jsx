@@ -45,6 +45,7 @@ const BlogSection = () => {
                 <div 
                   className="blog-post-image" 
                   style={{ backgroundImage: `url(${mainBlog.image})` }}
+                  loading="lazy"
                 ></div>
                 <div className="blog-post-content">
                   <h3>{mainBlog.title}</h3>
@@ -52,6 +53,7 @@ const BlogSection = () => {
                     <div 
                       className="author-avatar" 
                       style={{ backgroundImage: `url(${mainBlog.authorImage})` }}
+                      loading="lazy"
                     ></div>
                     <div className="author-info">
                       <span className="author-name">{mainBlog.author}</span>
@@ -71,6 +73,7 @@ const BlogSection = () => {
                   <div 
                     className="small-blog-image" 
                     style={{ backgroundImage: `url(${blog.image})` }}
+                    loading="lazy"
                   ></div>
                   <div className="small-blog-content">
                     <h4>{blog.title}</h4>
@@ -79,6 +82,7 @@ const BlogSection = () => {
                       <div 
                         className="author-avatar" 
                         style={{ backgroundImage: `url(${blog.authorImage})` }}
+                        loading="lazy"
                       ></div>
                       <div className="author-info">
                         <span className="author-name">{blog.author}</span>

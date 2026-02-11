@@ -60,7 +60,7 @@ const About = () => {
           <Row className="align-items-center">
             <Col lg={6} className="mb-4 mb-lg-0">
               <div className="experience-image-container">
-                <img src="img/img_exp.png" alt="Experience" className="experience-image" />
+                <img src="img/img_exp.webp" alt="Experience" className="experience-image" loading="lazy" />
               </div>
             </Col>
             
@@ -73,7 +73,7 @@ const About = () => {
                 ))}
 
                 <div className="founder-profile">
-                  <img src={aboutData.founder.image} alt="Founder" />
+                  <img src={aboutData.founder.image} alt="Founder" loading="lazy" />
                   <div className="founder-info">
                     <h6>{aboutData.founder.name}</h6>
                     <p>{aboutData.founder.role}</p>
@@ -165,7 +165,7 @@ const About = () => {
             {team.map((member, index) => (
               <Col lg={4} md={6} className="mb-4" key={member.id}>
                 <div className="team-card">
-                  <img src={member.image} alt={member.name} className={`team-image${index + 1}`} />
+                  <img src={member.image} alt={member.name} className={`team-image${index + 1}`} loading="lazy" />
                   <div className="team-info">
                     <h5>{member.name}</h5>
                     <p>{member.role}</p>

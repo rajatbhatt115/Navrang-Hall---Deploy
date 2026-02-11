@@ -162,7 +162,7 @@ const Wishlist = () => {
               {wishlistItems.map(item => (
                 <div className="wishlist-item d-flex" key={item.id}>
                   <div className="wishlist-image">
-                    <img src={item.image} alt={item.name} />
+                    <img src={item.image} alt={item.name} loading="lazy" />
                   </div>
                   <div className="wishlist-details">
                     <h5>{item.name}</h5>

@@ -36,6 +36,7 @@ const ExploringSection = () => {
               <div
                 className="category-card"
                 style={{ backgroundImage: `url(${category.image})` }}
+                loading="lazy"
               >
                 <div className="category-overlay">
                   <h4>{category.title}</h4>

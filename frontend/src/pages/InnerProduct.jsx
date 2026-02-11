@@ -5,7 +5,7 @@ import api from '../api';
 import { FaHeart, FaMinus, FaPlus, FaPaperPlane, FaEye, FaRedo, FaStar, FaRegStar, FaStarHalfAlt, FaShoppingCart } from 'react-icons/fa';
 
 const InnerProduct = () => {
-  const [mainImage, setMainImage] = useState('/img/img_lg1.png');
+  const [mainImage, setMainImage] = useState('/img/img_lg1.webp');
   const [selectedSize, setSelectedSize] = useState('XS');
   const [quantity, setQuantity] = useState(2);
   const [activeTab, setActiveTab] = useState('details');
@@ -295,7 +295,7 @@ const InnerProduct = () => {
       key: "rzp_test_1DP5mmOlF5G5ag",
       amount: totalPrice * 100,
       currency: "INR",
-      name: "Shree Laxmi Mall",
+      name: "Navrang Hall",
       description: `Product: ${product.name} - Size: ${selectedSize}`,
       image: "/img/logo.png",
       handler: function (response) {
@@ -503,6 +503,7 @@ const InnerProduct = () => {
                   src={mainImage}
                   alt="Dress"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                  loading="lazy"
                 />
                 {/* Wishlist Button with Orange Stroke and White Background */}
                 <button
@@ -570,6 +571,7 @@ const InnerProduct = () => {
                       src={img.thumb}
                       alt={`View ${index + 1}`}
                       style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                      loading="lazy"
                     />
                   </div>
                 ))}
@@ -851,6 +853,7 @@ const InnerProduct = () => {
                                 backgroundImage: `url(${review.avatar})`,
                                 border: '2px solid #FF7E00'
                               }}
+                              loading="lazy"
                             ></div>
                             <div className="reviewer-info">
                               <h6 style={{ fontWeight: '600', color: '#2D2D2D', margin: 0 }}>{review.name}</h6>
@@ -1131,7 +1134,7 @@ const InnerProduct = () => {
                     </Col>
                     <Col lg={6} md={6} xs={12} style={{ textAlign: 'center' }}>
                       <img
-                        src="/img/img_comment.png"
+                        src="/img/img_comment.webp"
                         alt="Comment"
                         style={{
                           width: '100%',
@@ -1139,6 +1142,7 @@ const InnerProduct = () => {
                           height: 'auto',
                           margin: '0 auto'
                         }} className='img-review'
+                        loading="lazy"
                       />
                     </Col>
                   </Row>

@@ -38,10 +38,12 @@ const AboutSection = () => {
           <Col lg={6}>
             <div className="position-relative">
               <img 
-                src="img/img_about-Photoroom.png" 
+                src="img/img_about-Photoroom.webp" 
                 alt="About Us" 
                 className="img-fluid" 
                 style={{ textAlign: 'center' }}
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </Col>

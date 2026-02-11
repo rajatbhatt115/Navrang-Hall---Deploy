@@ -146,6 +146,7 @@ const InnerBlog = () => {
                   borderRadius: '15px',
                   marginBottom: '30px'
                 }}
+                loading="lazy"
               ></div>
 
               {/* Blog Post Content */}
@@ -166,6 +167,7 @@ const InnerBlog = () => {
                       height: '50px',
                       borderRadius: '50%'
                     }}
+                    loading="lazy"
                   ></div>
                   <div className="author-info">
                     <div className="author-name">{blogData.author}</div>
@@ -278,6 +280,7 @@ const InnerBlog = () => {
                               borderRadius: '50%',
                               backgroundSize: 'cover'
                             }}
+                            loading="lazy"
                           ></div>
                           <div className="comment-author">
                             <h5>{comment.name}</h5>
